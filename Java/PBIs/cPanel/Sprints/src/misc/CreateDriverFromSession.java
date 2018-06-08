@@ -10,8 +10,8 @@ import java.net.URL;
 import java.util.Collections;
 
 public class CreateDriverFromSession {
-
-    public static RemoteWebDriver createDriverFromSession(final SessionId sessionId, URL command_executor){
+//@ TODO
+    public static RemoteWebDriver createDriverFromSession(final SessionId sessionId, URL command_executor) {
         CommandExecutor executor = new HttpCommandExecutor(command_executor) {
 
             @Override
@@ -47,12 +47,6 @@ public class CreateDriverFromSession {
         };
 
         return new RemoteWebDriver(executor, new DesiredCapabilities());
+
     }
-
-
-
-
-
-
-
 }

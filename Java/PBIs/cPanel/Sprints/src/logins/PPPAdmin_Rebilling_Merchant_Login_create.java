@@ -39,14 +39,14 @@ public class PPPAdmin_Rebilling_Merchant_Login_create {
     public static List<String> rebilling_Merchant_Login_create(WebDriver driver, String merchantAccount, String merchantLoginName, String merchantLoginPassword) throws IOException {
         if (!CODE_DEBUG) {
             driver.findElement(By.xpath("//a[text()[normalize-space(.)='Create Merchant Login']]")).click();
-            driver.findElement(By.xpath("//select[@name=\"merchantId\"]/option[text()[normalize-space(.)='" + merchantAccount + "']]")).click();
-            driver.findElement(By.xpath("//input[@name=\"loginName\"]")).sendKeys(merchantLoginName);
-            driver.findElement(By.xpath("//input[@name=\"passwordHash\"]")).sendKeys(merchantLoginPassword);
-            driver.findElement(By.xpath("//input[@name=\"retypePassword\"]")).sendKeys(merchantLoginPassword);
+            driver.findElement(By.xpath("//select[@name='merchantId']/option[text()[normalize-space(.)='" + merchantAccount + "']]")).click();
+            driver.findElement(By.xpath("//input[@name='loginName']")).sendKeys(merchantLoginName);
+            driver.findElement(By.xpath("//input[@name='passwordHash']")).sendKeys(merchantLoginPassword);
+            driver.findElement(By.xpath("//input[@name='retypePassword']")).sendKeys(merchantLoginPassword);
         }
         InputDialogMessage.showInputMessage("Rebilling Merchant", "Are these the correct values? \n If not write your owns and press OK button", "OK?");
 
-//        merchantAccount = driver.findElement(By.xpath("//select[@name=\"merchantId\"]/option[text()[normalize-space(.)='" + merchantAccount + "']]"));
+//        merchantAccount = driver.findElement(By.xpath("//select[@name='merchantId']/option[text()[normalize-space(.)='" + merchantAccount + "']]"));
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         LocalDateTime date = LocalDateTime.now();
@@ -54,10 +54,10 @@ public class PPPAdmin_Rebilling_Merchant_Login_create {
         System.out.println(dateToText);
 
         if (!CODE_DEBUG) {
-            String merchantAccountValue = driver.findElement(By.xpath("//select[@name=\"merchantId\"]")).getAttribute("value");
+            String merchantAccountValue = driver.findElement(By.xpath("//select[@name='merchantId']")).getAttribute("value");
             merchantAccount = driver.findElement(By.xpath("//option[@value=\'" + merchantAccountValue + "\']")).getText();
-            merchantLoginName = driver.findElement(By.xpath("//input[@name=\"loginName\"]")).getAttribute("value");
-            merchantLoginPassword = driver.findElement(By.xpath("//input[@name=\"passwordHash\"]")).getAttribute("value");
+            merchantLoginName = driver.findElement(By.xpath("//input[@name='loginName']")).getAttribute("value");
+            merchantLoginPassword = driver.findElement(By.xpath("//input[@name='passwordHash']")).getAttribute("value");
         }
 
         doYouWantToSaveTheChanges(driver);
@@ -95,12 +95,12 @@ public class PPPAdmin_Rebilling_Merchant_Login_create {
 
 
     private static void doYouWantToSaveTheChanges(WebDriver driver) {
-        String merchantRebillAnswer = DialogMessageWithDropDown.showMessageWindow("PPP Admin: Create \"Rebilling Merchant Login\"", "Do you want to save the changes?", new String[]{"Yes", "NO"});
+        String merchantRebillAnswer = DialogMessageWithDropDown.showMessageWindow("PPP Admin: Create 'Rebilling Merchant Login'", "Do you want to save the changes?", new String[]{"Yes", "NO"});
 
         if (merchantRebillAnswer.equals("Yes")) {
-            driver.findElement(By.xpath("//input[@value=\"Save\"]")).click(); //
+            driver.findElement(By.xpath("//input[@value='Save']")).click(); //
         } else {
-            driver.findElement(By.xpath("//input[@value=\"Cancel\"]")).click(); //
+            driver.findElement(By.xpath("//input[@value='Cancel']")).click(); //
         }
     }
 

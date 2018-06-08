@@ -1,4 +1,4 @@
-package misc;
+package mytests;
 
 
 import java.awt.*;
@@ -26,7 +26,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 //import org.testng.annotations.Test;
 
-public class testWith {
+public class screenCapture_testWith {
     String driverPath = "C:\\02_QA\\Selenium\\WebDriver\\geckodriver-v0.20.0-win32.exe";
     WebDriver driver;
     public WebElement element;
@@ -49,11 +49,12 @@ public class testWith {
 
         //Search for drop down
         element = myDynamicElement;
-        JavascriptExecutor js             = (JavascriptExecutor) driver;
-        int                documentHeight = ((Number) js.executeScript("return document.body.clientHeight")).intValue();
-        int                documentWidth  = ((Number) js.executeScript("return document.body.clientWidth")).intValue();
-        int                clientHeight   = ((Number) js.executeScript("return document.documentElement.clientHeight")).intValue();
-        int                clientWidth    = ((Number) js.executeScript("return document.documentElement.clientWidth")).intValue();
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+
+        int documentHeight = ((Number) js.executeScript("return document.body.clientHeight")).intValue();
+        int documentWidth  = ((Number) js.executeScript("return document.body.clientWidth")).intValue();
+        int clientHeight   = ((Number) js.executeScript("return document.documentElement.clientHeight")).intValue();
+        int clientWidth    = ((Number) js.executeScript("return document.documentElement.clientWidth")).intValue();
 //        JavascriptExecutor js = (JavascriptExecutor) driver.manage().window().setSize(new Dimension(documentHeight,documentWidth));
 
         System.out.println("clientHeight: " + clientHeight);

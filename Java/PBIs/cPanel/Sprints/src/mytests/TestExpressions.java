@@ -1,13 +1,13 @@
-package misc;
+package mytests;
 
 public class TestExpressions {
 
 
     public static void main(String[] args) {
 
-/*
-        int    x   = 464;
-        int    y   = 1903;
+/*  */
+        int    x   = 2;
+        int    y   = 23;
         int    z1  = (int) Math.ceil((double) x / (double) y);
         double z2  = Math.ceil((double) x / (double) y);
         double z3  = Math.ceil((double) x / (double) y);
@@ -42,7 +42,10 @@ public class TestExpressions {
             System.out.println("      HERE: " + errSubstr.substring(theLastDot));
 
         }
-*/
+
+
+
+/*
         MyCustomDate   fromDate = new MyCustomDate("2016", "Apr", "12", "", "");
         MyCustomDate   toDate   = new MyCustomDate("2017", "Apr", "11", "", "");
         MyCustomDate[] theLoop  = {fromDate, toDate};
@@ -53,8 +56,16 @@ public class TestExpressions {
                 System.out.format("Var: " + var + " Y:%s M:%s D:%s \n", fromDate.getYear(), fromDate.getMonth(), fromDate.getDay());
             }
         }
-//
+*/
+
 
 
     }
+
+
+
+
+
+
+
 }

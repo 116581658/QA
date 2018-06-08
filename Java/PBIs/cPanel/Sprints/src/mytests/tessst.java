@@ -1,4 +1,4 @@
-package misc;
+package mytests;
 
 import com.google.gson.JsonArray;
 import org.openqa.selenium.json.Json;

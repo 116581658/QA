@@ -11,16 +11,16 @@ import java.io.*;
 public class NextIndexValue {
     static final Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
 
-    static void setClipboardContents(final String aContents){
+    static void setClipboardContents(final String aContents) {
         clipboard.setContents(new StringSelection(aContents), null);
     }
 
     static String getClipboardContents() throws IOException, UnsupportedFlavorException {
-        return (String)clipboard.getContents(null).getTransferData(DataFlavor.stringFlavor);
+        return (String) clipboard.getContents(null).getTransferData(DataFlavor.stringFlavor);
     }
 
 
-    static void showIndexValue(String i, String title, String textBeforeI, Integer x , Integer y) throws IOException, UnsupportedFlavorException {
+    static void showIndexValue(String i, String title, String textBeforeI, Integer x, Integer y) throws IOException, UnsupportedFlavorException {
 
         JOptionPane optionPane = new JOptionPane(textBeforeI, JOptionPane.INFORMATION_MESSAGE, JOptionPane.DEFAULT_OPTION);
         optionPane.setWantsInput(true);
