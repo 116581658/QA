@@ -1,0 +1,261 @@
+driver.find_element_by_xpath("//*[text()[normalize-space(.)='nettelerAccount']]").click()
+driver.find_element_by_xpath("//*[text()[normalize-space(.)='nettelerAccount']]/./span[last()]").click()
+driver.find_element_by_xpath("//*[text()[normalize-space(.)='nettelerSecureId']]").click()
+driver.find_element_by_xpath("//*[text()[normalize-space(.)='nettelerSecureId']]/./span[last()]").click()
+driver.find_element_by_xpath("//*[text()[normalize-space(.)='qiwi_phonenumber']]").click()
+driver.find_element_by_xpath("//*[text()[normalize-space(.)='qiwi_phonenumber']]/./span[last()]").click()
+
+
+
+
+http://tfs.safecharge.com:8080/tfs/DefaultCollection/_apis/wit/workitems?fields=System.Title,System.IterationPath&ids=6389
+
+http://tfs.safecharge.com:8080/tfs/DefaultCollection/_apis/wit/workitems?ids=5970
+
+http://tfs.safecharge.com:8080/tfs/DefaultCollection/_apis/wit/workitems?fields=System.Title,System.IterationPath&ids=5970
+http://tfs.safecharge.com:8080/tfs/DefaultCollection/_apis/wit/workitems?ids=5970
+
+1210506 - NOK
+PlayfulDesktopPurchase
+
+theme
+https://srv-bsf-devppptrunk.gw-4u.com/ppp/purchase.do?checksum=99798a5a7683460b8d8a868f5c9116cffcaf448f8503e8a8e287c4608dae1609&item_open_amount_1=true&numberofitems=1&country=BR&merchantLocale=en_US&cc_exp_month=10&merchant_unique_id=3905682322&city=MyCity&theme_id=1210506&item_name_1=Yanko-Everything_01&merchant_id=7567344427081642651&cc_cvv2=122&cc_exp_year=21&phone1=02+222+222+222&item_long_description_1=LONNNNNNNNGGGG+destdription+1&item_max_amount_1=100026.97&currency=USD&user_token=auto&first_name=testFN&email=ti%40pay.com&zip=10001&cc_card_number=4539713241634864&time_stamp=2018-02-01.16%3A18%3A53&merchant_site_id=121106&address1=Address01&item_short_description_1=Short+Description+of+the+itemssite+1&last_name=myLastName&notify_url=https%3A%2F%2Fdir.bg&item_min_amount_1=10.00&encoding=UTF8&version=4.0.0&user_token_id=Import-Export_Yan_001&total_amount=20&item_image_url_1=128306%2F1501226297__.asset1.svg&cc_name_on_card=VISA&item_quantity_1=1&item_amount_1=20
+
+
+
+
+
+
+
+
+
+
+
+
+//a[contains(@id, 'ctl00_btnAircraftMapCell') and contains(@title, 'Select Seat')]
+//div[@title = 'title']//li/p[. = 'Some Text 1']/following-sibling::span[1]
+//a[text()[normalize-space(.)='${varSprintName}']]
+//div[text()[normalize-space(.)='${varSprintName}']]
+
+//div[contains(@title, 'Credit Card')]
+
+//span[contains(@span, '2785')]
+
+//div[contains(@title, 'Credit Card')][descendant::span[contains(@span, '2785')]]
+
+title="Local Payment Options"
+
+title="Credit Card" upoid="7004506"
+
+class="card_label"
+
+2785 and
+
+<input id="continueButton" class="continue" name="btnSubmit" value="Deposit" alt="Deposit" style="" type="button"/
+//input[contains(id, 'continueButton') and contains(value, 'Deposit')]
+${varSprintName}
+
+//span[contains(@class, 'card_label') and text()[contains(normalize-space(.),'${varCreditCardLastDigits}')]]/ancestor::div[contains(@title, 'Credit Card')]/div[1]
+//span[contains(@class, 'card_label')]/ancestor::div[contains(@title, 'Credit Card')]/div[1]
+//span[contains(@class, 'card_label')]/ancestor::div[contains(@title, 'Local Payment Options')]/div[1]
+mmethod="apmgw_Astropay_TEF"
+
+//input[text()[normalize-space(.)='cc_name_on_card']]
+//div[contains(mmethod, 'apmgw_Astropay_TEF')]
+
+//*[matches(text(),'(^|\W)2085($|\W)','i')]
+//*[matches(text(),'2085','i')]
+text()[normalize-space(.)='2085'
+
+ //div[text()[contains(normalize-space(.),'Credit Card')]
+ //span[contains(@class, 'card_label') and text()[contains(normalize-space(.),'4051')] ]
+'Choose one'
+//span[contains(text(),'2085')]
+normalize-space(string?)
+
+//a[contains(@id, 'ctl00_btnAircraftMapCell') and contains(@title, 'Select Seat')]
+
+text()[normalize-space(.)='cc_name_on_card']
+
+
+//div[contains(@class, 'paymentOpt-viewport')]
+ext()[normalize-space(.
+
+tree = tr.xpath("//*[not(contains(@style,'display:none'))]/text()")
+tree = tr.xpath("//*[not(contains(@style,'display:inline-block'))]/text()")
+//div[contains(@class,'tags-items-container')]/ul/li[(contains(@style,'display:inline-block'))]/descendant::span[contains(@class,'tag-box-selectable')]
+
+
+
+//span[text()[normalize-space(.)='Credit Card']]/ancestor::div[1]
+
+//div[contains(@class, 'paymentOpt-viewport')]/ul/li/div[contains(@id, 'cc_card') and contains(@class, 'available_payment_methods')]
+
+Credit card form Other Payment Methods = //div[contains(@class, 'paymentOpt-viewport')]/ul/li/div[contains(@id, 'cc_card') and contains(@class, 'available_payment_methods')]/div
+
+//div[@class='dashboard_filters']//select[@name="period"]/parent::div/div/div[contains(@class,'ms-drop')]//li[text()[normalize-space(.)='Yesterday']]
+3337885696924051
+//span[contains(@class, 'card_label') and text()[contains(normalize-space(.),'4051')]]/ancestor::div[contains(@title, 'Credit Card')]/div[1]
+
+//div[contains(@class,'tags-items-container')]/ul/li[(contains(@style,'display: inline-block'))]/descendant::span[contains(@class,'tag-box-selectable')]  - ADD field
+
+
+
+//span[contains(@class,'ui-dialog-title') and contains(text()[normalize-space(.)],'Test Case')]/ancestor::div[contains(@class,'ui-widget-content')]/descendant::span[contains(@class,'tag-box-selectable')] - ADD field better
+
+
+//*[matches(text(),'(^|\W)2085($|\W)','i')]
+
+
+.//*[@id='summary-today_sales']
+//*[text()[normalize-space(.)='Today Sales']]/ancestor::div[@id='summary-today_sales']
+//*[text()[normalize-space(.)='Monthly Projections']]
+//*[text()[normalize-space(.)='Reports']]
+//*[text()[normalize-space(.)='Name']]/../input[@type,'name']
+
+//select[@name="managingCompany"]/option[contains(text(),'Safecharge') and contains(@value, '1')]
+
+//select[@name="managingCompany"]/option[matches(text(),'(^|\W)Safecharge($|\W)','i')]
+
+
+
+//*[@id="MerchantForm"]/select[2]/option[contains(text(),'Safecharge')]
+//select[@name="isoCode"]/option[text()[normalize-space(.)='GERMANY']]
+//select[@name="isoCode"]/option[matches(text(),'germany','i')]
+//select[@name="isoCode"]/option[text()[normalize-space(.)="GERMANY",'i')]
+
+//*[text()[normalize-space(.)='Yanko-Merchant_Regression_Manual']]/../input[@type,'name']
+//*[text()[normalize-space(.)='Yanko-Merchant_Regression_Manual']]/../*a[text()[normalize-space(.)='Edit']]
+//*[text()[normalize-space(.)='Yanko-Merchant']]/..//a[text()[normalize-space(.)='Edit']]
+1. open a driver
+	driver = webdriver.Firefox()  #python
+
+2. extract to session_id and _url from driver object.
+	url = driver.command_executor._url       #"http://127.0.0.1:60622/hub"
+	session_id = driver.session_id            #'4e167f26-dc1d-4f51-a207-f761eaf73c31'
+
+3. Use these two parameter to connect to your driver.
+	driver = webdriver.Remote(command_executor=url,desired_capabilities={})
+	driver.session_id = session_id
+
+4. And you are connected to your driver again.
+	driver.get("http://www.mrsmart.in")
+
+
+=================================
+should do it in an other tab swtich do your stuff and close the tab and continue:
+Set<String> winSet = webDriver.getWindowHandles();
+List<String> winList = new ArrayList<String>(winSet);
+String newTab = winList.get(winList.size() - 1);
+webDriver.close(); // close the original tab
+webDriver.switchTo().window(newTab); // switch to new tab
+
+//select[@name="rblTemplateId"]
+soapUItest1081861
+http://192.168.103.237:8080/pppadmin/admin/listrebillingproduct.do
+http://192.168.103.237:8080/pppadmin/admin/editrebillingproduct.do?productId=62806
+
+/ppp/resources/img/bgo_subscribe.jpg
+
+//*[text()[normalize-space(.)='BGO subscriptions']]
+//*[text()[normalize-space(.)='BGO subscriptions']]/..//a[text()[normalize-space(.)='Edit']]
+//a[text()[normalize-space(.)='Next']]
+//input[text()[normalize-space(.)='Custom period']]
+//input[text()[normalize-space(.)='15']]
+
+; Using mouse moves
+Actions builder = new Actions(browser);
+builder.moveToElement(transSearch).build().perform();
+
+
+
+[not(contains(@style,'display:none'))]
+//table[@class='DynarchCalendar-topCont' and (not(contains(@style,'display: none')))]
+//table[@class='DynarchCalendar-topCont' and (not(contains(@style,'display: none')))]//div[@class='DynarchCalendar-body']//div[@dyc-date='20180417']
+
+''
+//*[@id="ContainerMain1"]/div[text()[normalize-space(.)='QR Generator']]
+
+String xpath_qr_first_name="//*[@id='w_first_name']";
+String xpath_qr_last_name ="//*[@id='w_last_name']";
+String xpath_qr_user_id ="//*[@id='w_user_id']";
+String xpath_qr_user_email ="//*[@id='w_user_email']";
+String xpath_qr_rideId_Invoice ="//*[@id='w_ride_id']";
+String xpath_qr_payment_amount ="//*[@id='w_amount']";
+String xpath_qr_currency ="//*[@id='w_bp_currency']";
+
+//*[@id="generate_btn"]
+
+
+//*[@id="copy_btn"]
+
+//div[text()[normalize-space(.)='Transaction Information']]
+
+yankoyan
+yanko_regresssion_manual
+
+yankoyan
+//h1[text()[normalize-space(.)='HIDE_DELETE_BUTTON_IN_USER_PAYMENT_METHODS']]
+
+
+//h3[text()[normalize-space(.)='Toggle and drag to order']]
+
+//h3[text()[normalize-space(.)='Cpanel Options']]/parent::div/parent::div/div[contains(@id, 'container')]/table//td[text()[normalize-space(.)='HIDE_DELETE_BUTTON_IN_USER_PAYMENT_METHODS']]
+
+
+String parameterName = "//h3[text()[normalize-space(.)='Cpanel Options']]/parent::div/parent::div/div[contains(@id, 'container')]/table//td[text()[normalize-space(.)='HIDE_DELETE_BUTTON_IN_USER_PAYMENT_METHODS']]";
+
+String parameterBtnEdit = "//h3[text()[normalize-space(.)='Cpanel Options']]/parent::div/parent::div/div[contains(@id, 'container')]/table//td[text()[normalize-space(.)='HIDE_DELETE_BUTTON_IN_USER_PAYMENT_METHODS']]/parent::tr//a[text()[normalize-space(.)='Edit']]/parent::div";
+
+
+
+//h2[text()[normalize-space(.)='Overview Dashboard']]
+//div[text()[normalize-space(.)='Switch to live']]
+//label[text()[normalize-space(.)='I am an owner or director']]
+//*[@id="appFormHolder"]/div[[text()[normalize-space(.)='X']]]
+//button[[text()[normalize-space(.)='Add filter']]]
+//span[[text()[normalize-space(.)='Please select a Period']]]
+
+
+//h3[text()[normalize-space(.)='Toggle and drag to order']]/..//div[@class="customPopupContent"]
+
+//*[(@title="Remove") and (filterdata="periods") and (filterdatav="yesterday")]
+
+
+-- Ends with
+
+//*[@id="main_content"]//div[contains(@class,'dashboard_filters_section_wrapper')]
+
+//*[starts-with(@aria-labelledby,'select2-paymentMethod') and ( [substring(@aria-labelledby,string-length(@aria-labelledby)-string-length('-container') +1) = '-container'])]
+//*[starts-with(@aria-labelledby,'select2-paymentMethod')]
+
+Replace: 'aria-labelledby' and '-container' with your class and text
+//*[substring(@aria-labelledby,string-length(@aria-labelledby)-string-length('-container') +1) = '-container']  <-- Ends with
+
+
+/products/product[contains(categorie,'Kinderwagens') or contains(categorie,'Wonderwagens')]
+//*[substring(@aria-labelledby,string-length(@aria-labelledby)-string-length('-container') +1) = '-container']
+
+
+/meadinkent/record[compdiv[.='MENSWEAR'] and sty_ret_type[.='ACCESSORIES']]
+
+
+//*[contains(@id="select2-paymentMethod") and contains(@id="-results")]
+
+
+
+
+
+
+----CSS----
+ li[id^='select2-paymentMethod'][id$='295']
+
+
+--------------
+
+
+//select[contains(@class,'dashboard-filters-periods')]//span[text()[normalize-space(.)='Please select a Period']]
+//div[contains(@class,'dashboard-filters-periods')]//span[text()[normalize-space(.)='Please select a Period']]/../..//div[@class="ms-drop bottom"]//label[text()[normalize-space(.)='Today']]
+
+
+
