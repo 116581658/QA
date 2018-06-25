@@ -1,11 +1,16 @@
 package logins;
 
+import com.google.common.base.Verify;
 import misc.HighlightElement;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.Assert;
+
+import javax.sound.midi.Soundbank;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static misc.DateCalculations.getDateAndTime;
 
@@ -23,58 +28,65 @@ public class CPanel_Dashboard_BTN_Customize {
     }
 
     public static void btnCustomize_setCurrency(WebDriver driver, long waitingTimeSec, String currencyName) {
-        String        currencyDropDown            = "//*[@id='currency']";
-        WebDriverWait wait                        = new WebDriverWait(driver, waitingTimeSec);
+        String     currencyDropDown = "//*[@id='currency']";
+        WebElement dropDown         = driver.findElement(By.xpath(currencyDropDown));
 
-        WebElement dropDownCurrency = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(currencyDropDown)));
+        btnCustomize_verifyCurrencyDropDown(driver, dropDown, waitingTimeSec);
 
-        HighlightElement.highlightElementBorder(driver, dropDownCurrency, "red");
-
-//@TODO: Add check if the currency drop-down is Visible and Selectable: Assert or Verify is better
-//See below: btnCustomize_assertCurrencyDropDown(....)
+        HighlightElement.highlightElementBorder(driver, dropDown, "red");
 
         Select currencyOption = new Select(driver.findElement(By.xpath(currencyDropDown)));
         currencyOption.selectByVisibleText(currencyName);
 
-//@TODO: Add check if the Selected currency stays after Apply button has been pressed: Assert or Verify is better
-//See below: btnCustomize_assertCurrencyChosen
-        btnCustomize_assertCurrencyChosen(driver,waitingTimeSec,currencyName);
+        btnCustomize_verifyCurrencyChosen(driver, waitingTimeSec, currencyName);
 
 
     }
 
-    public static void btnCustomize_assertCurrencyDropDown(WebDriver driver, long waitingTimeSec) {
-        String        currencyDropDown            = "//*[@id='currency']";
-        boolean       currencyDropDownIsDisplayed ;
-        WebDriverWait wait                        = new WebDriverWait(driver, waitingTimeSec);
-
-        WebElement dropDownCurrency = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(currencyDropDown)));
+    public static void btnCustomize_verifyCurrencyDropDown(WebDriver driver, WebElement element, long waitingTimeSec) {
+        boolean       currencyDropDownIsDisplayed;
+        boolean       currencyDropDownIsEditable;
+        WebDriverWait wait             = new WebDriverWait(driver, waitingTimeSec);
+        WebElement    dropDownCurrency = wait.until(ExpectedConditions.visibilityOf(element));
 
         currencyDropDownIsDisplayed = dropDownCurrency.isDisplayed();
         if (currencyDropDownIsDisplayed) {
-            System.out.println("Currency drop-down is present: OK");
+            System.out.println("Currency drop-down is Present: OK");
         } else {
-            System.out.println("Currency drop-down is not present: NOK");
+            System.out.println("Currency drop-down is Not Present: NOK");
+        }
+
+        currencyDropDownIsEditable = dropDownCurrency.isEnabled();
+        if (currencyDropDownIsEditable) {
+            System.out.println("Currency drop-down is Enabled: OK");
+        } else {
+            System.out.println("Currency drop-down is Not Enabled: NOK");
         }
 
 
-
     }
 
-    public static void btnCustomize_assertCurrencyChosen(WebDriver driver, long waitingTimeSec, String currencyName) {
-        String        currencyDropDown            = "//*[@id='currency']";
-        WebDriverWait wait                        = new WebDriverWait(driver, waitingTimeSec);
+    public static void btnCustomize_verifyCurrencyChosen(WebDriver driver,
+                                                         long waitingTimeSec,
+                                                         String currencyName) {
+        String        currencyDropDown = "//*[@id='currency']";
+        WebDriverWait wait             = new WebDriverWait(driver, waitingTimeSec);
 
         WebElement dropDownCurrency = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(currencyDropDown)));
 
-        Select currencyOption = new Select(driver.findElement(By.xpath(currencyDropDown)));
-        String option = currencyOption.getFirstSelectedOption().getText();
-        System.out.printf("Selected currency value: %s\n", option);
-        Assert.assertEquals(option, currencyName);
+//        Select currencyOption = new Select(driver.findElement(By.xpath(currencyDropDown)));
+        Select currencyOption = new Select(dropDownCurrency);
+        String option         = currencyOption.getFirstSelectedOption().getText();
+
+        try {
+            Verify.verify(true, "Expected: [" + currencyName + "] | Present: [" + option + "] don't match!: NOK ", option, currencyName);
+            System.out.println("Expected: [" + currencyName + "] | Present: [" + option + "] match!: OK");
+        } catch (Throwable ex) {
+            System.out.println(ex.getMessage());
+        }
 
 
     }
-
 
 
     public static void btnCustomize_clickApply(WebDriver driver, long waitingTimeSec) {
@@ -171,7 +183,9 @@ public class CPanel_Dashboard_BTN_Customize {
         PAYMENTMETHODS("Payment Methods"),
         REFUNDRATIO("Refund Ratio"),
         SALES("Sales"),
-        TRANSACTIONS("Transactions");
+        TRANSACTIONS("Transactions"),
+        ACQUIRERBANKSDISTRIBUTION("Acquirer Banks Distribution")
+        ;
 
         DashboardPopup_OVERVIEWDASHBOARD_getFieldName(String v) {
             value = v;
@@ -198,7 +212,140 @@ public class CPanel_Dashboard_BTN_Customize {
         }
     }
 
-    public static void btnCustomize_MAINDASHBOARD_setField_ON_OFF(WebDriver browser, long waitingTimeSec, DashboardPopup_MAINDASHBOARD_getFieldName fieldName, DashboardPopup_setFieldState state) throws InterruptedException {
+    public static void btnCustomize_MAINDASHBOARD_setFields_OFF(WebDriver driver, long waitingTimeSec) throws InterruptedException {
+        String sectionName = DashboardPopup_Section_getName.MAINDASHBOARD.getValue();
+        String getFieldName;
+
+        DashboardPopup_MAINDASHBOARD_getFieldName[] getFieldNames = DashboardPopup_MAINDASHBOARD_getFieldName.values();
+
+        for (DashboardPopup_MAINDASHBOARD_getFieldName values : getFieldNames) {
+
+            getFieldName = values.getValue();
+            String  sectionForm  = "//h2[text()[normalize-space(.)='" + sectionName + "']]/following-sibling::ul/../..";
+            String  section      = "//h2[text()[normalize-space(.)='" + sectionName + "']]/following-sibling::ul";
+            String  field        = section + "//span[text()[normalize-space(.)=\"" + getFieldName + "\"]]"; // Here DON'T Change the " to ' !!!
+            String  toggleButton = field + "/parent::li//label[contains(@class,'checkbox-label')]";
+            String  state        = "OFF";
+            boolean firsttime    = true;
+
+            WebDriverWait wait         = new WebDriverWait(driver, waitingTimeSec);
+            WebElement    sectionField = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(sectionForm)));
+
+//========Scroll to the element:
+            WebElement         elementField = driver.findElement(By.xpath(field));
+            JavascriptExecutor js           = (JavascriptExecutor) driver;
+
+            js.executeScript("arguments[0].scrollIntoView(true);", elementField);
+
+            Thread.sleep(200);
+//========Element change status:
+            WebElement elementLocationToggle = driver.findElement(By.xpath(toggleButton));
+            String     locationText          = elementLocationToggle.getText();
+
+            if (!locationText.equals(state)) {
+                elementLocationToggle.click();
+                locationText = elementLocationToggle.getText();
+            }
+
+            System.out.printf("%s's toggle has set to: %s\n", getFieldName, locationText);
+
+            js.executeScript("window.scrollTo(0,0);");
+            Thread.sleep(200);
+        }
+    }
+
+    public static void btnCustomize_COMPARISONGRAPHS_setFields_OFF(WebDriver driver, long waitingTimeSec) throws InterruptedException {
+        String sectionName = DashboardPopup_Section_getName.COMPARISONGRAPHS.getValue();
+        String getFieldName;
+
+        DashboardPopup_COMPARISONGRAPHS_getFieldName[] getFieldNames = DashboardPopup_COMPARISONGRAPHS_getFieldName.values();
+
+        for (DashboardPopup_COMPARISONGRAPHS_getFieldName values : getFieldNames) {
+
+            getFieldName = values.getValue();
+            String  sectionForm  = "//h2[text()[normalize-space(.)='" + sectionName + "']]/following-sibling::ul/../..";
+            String  section      = "//h2[text()[normalize-space(.)='" + sectionName + "']]/following-sibling::ul";
+            String  field        = section + "//span[text()[normalize-space(.)=\"" + getFieldName + "\"]]"; // Here DON'T Change the " to ' !!!
+            String  toggleButton = field + "/parent::li//label[contains(@class,'checkbox-label')]";
+            String  state        = "OFF";
+            boolean firsttime    = true;
+
+            WebDriverWait wait         = new WebDriverWait(driver, waitingTimeSec);
+            WebElement    sectionField = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(sectionForm)));
+
+//========Scroll to the element:
+            WebElement         elementField = driver.findElement(By.xpath(field));
+            JavascriptExecutor js           = (JavascriptExecutor) driver;
+
+            js.executeScript("arguments[0].scrollIntoView(true);", elementField);
+
+            Thread.sleep(200);
+//========Element change status:
+            WebElement elementLocationToggle = driver.findElement(By.xpath(toggleButton));
+            String     locationText          = elementLocationToggle.getText();
+
+            if (!locationText.equals(state)) {
+                elementLocationToggle.click();
+                locationText = elementLocationToggle.getText();
+            }
+
+            System.out.printf("%s's toggle has set to: %s\n", getFieldName, locationText);
+
+            js.executeScript("window.scrollTo(0,0);");
+            Thread.sleep(200);
+        }
+    }
+
+    public static void btnCustomize_OVERVIEWDASHBOARD_setFields_OFF(WebDriver driver, long waitingTimeSec) throws InterruptedException {
+        String sectionName = DashboardPopup_Section_getName.MAINDASHBOARD.getValue();
+        String getFieldName;
+
+        DashboardPopup_OVERVIEWDASHBOARD_getFieldName[] getFieldNames = DashboardPopup_OVERVIEWDASHBOARD_getFieldName.values();
+
+        for (DashboardPopup_OVERVIEWDASHBOARD_getFieldName values : getFieldNames) {
+
+            getFieldName = values.getValue();
+            String  sectionForm  = "//h2[text()[normalize-space(.)='" + sectionName + "']]/following-sibling::ul/../..";
+            String  section      = "//h2[text()[normalize-space(.)='" + sectionName + "']]/following-sibling::ul";
+            String  field        = section + "//span[text()[normalize-space(.)=\"" + getFieldName + "\"]]"; // Here DON'T Change the " to ' !!!
+            String  toggleButton = field + "/parent::li//label[contains(@class,'checkbox-label')]";
+            String  state        = "OFF";
+            boolean firsttime    = true;
+
+            WebDriverWait wait         = new WebDriverWait(driver, waitingTimeSec);
+            WebElement    sectionField = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(sectionForm)));
+
+//========Scroll to the element:
+            WebElement         elementField = driver.findElement(By.xpath(field));
+            JavascriptExecutor js           = (JavascriptExecutor) driver;
+
+            js.executeScript("arguments[0].scrollIntoView(true);", elementField);
+
+            Thread.sleep(200);
+//========Element change status:
+            WebElement elementLocationToggle = driver.findElement(By.xpath(toggleButton));
+            String     locationText          = elementLocationToggle.getText();
+
+            if (!locationText.equals(state)) {
+                elementLocationToggle.click();
+                locationText = elementLocationToggle.getText();
+            }
+
+            System.out.printf("%s's toggle has set to: %s\n", getFieldName, locationText);
+
+            js.executeScript("window.scrollTo(0,0);");
+            Thread.sleep(200);
+        }
+    }
+
+private static boolean firstEntrance = true;
+    public static void btnCustomize_MAINDASHBOARD_setField_ON_OFF(WebDriver driver, long waitingTimeSec, DashboardPopup_MAINDASHBOARD_getFieldName fieldName, DashboardPopup_setFieldState state) throws InterruptedException {
+
+        if (firstEntrance){
+            btnCustomize_MAINDASHBOARD_setFields_OFF(driver,waitingTimeSec);
+            firstEntrance = false;
+        }
+
         String sectionName  = DashboardPopup_Section_getName.MAINDASHBOARD.getValue();
         String getFieldName = fieldName.getValue();
 
@@ -207,18 +354,19 @@ public class CPanel_Dashboard_BTN_Customize {
         String field        = section + "//span[text()[normalize-space(.)=\"" + fieldName.getValue() + "\"]]";
         String toggleButton = field + "/parent::li//label[contains(@class,'checkbox-label')]";
 
-        WebDriverWait wait         = new WebDriverWait(browser, waitingTimeSec);
+
+        WebDriverWait wait         = new WebDriverWait(driver, waitingTimeSec);
         WebElement    sectionField = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(sectionForm)));
 
 //========Scroll to the element:
-        WebElement         elementField = browser.findElement(By.xpath(field));
-        JavascriptExecutor js           = (JavascriptExecutor) browser;
+        WebElement         elementField = driver.findElement(By.xpath(field));
+        JavascriptExecutor js           = (JavascriptExecutor) driver;
 
         js.executeScript("arguments[0].scrollIntoView(true);", elementField);
 
-        Thread.sleep(400);
+        Thread.sleep(200);
 //========Element change status:
-        WebElement elementLocationToggle = browser.findElement(By.xpath(toggleButton));
+        WebElement elementLocationToggle = driver.findElement(By.xpath(toggleButton));
         String     locationText          = elementLocationToggle.getText();
 
         if (!locationText.equals(state.getValue())) {
@@ -229,7 +377,7 @@ public class CPanel_Dashboard_BTN_Customize {
         System.out.printf("%s's toggle has set to: %s\n", getFieldName, locationText);
 
         js.executeScript("window.scrollTo(0,0);");
-        Thread.sleep(400);
+        Thread.sleep(200);
     }
 
     public static void btnCustomize_COMPARISONGRAPHS_setField_ON_OFF(WebDriver browser, long waitingTimeSec, DashboardPopup_COMPARISONGRAPHS_getFieldName fieldName, DashboardPopup_setFieldState state) throws InterruptedException {
@@ -250,7 +398,7 @@ public class CPanel_Dashboard_BTN_Customize {
 
         js.executeScript("arguments[0].scrollIntoView(true);", elementField);
 
-        Thread.sleep(400);
+        Thread.sleep(200);
 //========Element change status:
         WebElement elementLocationToggle = browser.findElement(By.xpath(toggleButton));
         String     locationText          = elementLocationToggle.getText();
@@ -263,7 +411,7 @@ public class CPanel_Dashboard_BTN_Customize {
         System.out.printf("%s's toggle has set to: %s\n", getFieldName, locationText);
 
         js.executeScript("window.scrollTo(0,0);");
-        Thread.sleep(400);
+        Thread.sleep(200);
     }
 
     public static void btnCustomize_OVERVIEWDASHBOARD_setField_ON_OFF(WebDriver browser, long waitingTimeSec, DashboardPopup_OVERVIEWDASHBOARD_getFieldName fieldName, DashboardPopup_setFieldState state) throws InterruptedException {
@@ -284,7 +432,7 @@ public class CPanel_Dashboard_BTN_Customize {
 
         js.executeScript("arguments[0].scrollIntoView(true);", elementField);
 
-        Thread.sleep(400);
+        Thread.sleep(200);
 //========Element change status:
         WebElement elementLocationToggle = browser.findElement(By.xpath(toggleButton));
         String     locationText          = elementLocationToggle.getText();
@@ -297,7 +445,7 @@ public class CPanel_Dashboard_BTN_Customize {
         System.out.printf("%s's toggle has set to: %s\n", getFieldName, locationText);
 
         js.executeScript("window.scrollTo(0,0);");
-        Thread.sleep(400);
+        Thread.sleep(200);
     }
 
 

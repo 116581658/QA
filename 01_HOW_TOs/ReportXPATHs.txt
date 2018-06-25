@@ -1,0 +1,73 @@
+
+
+====================
+====================SC
+====================
+Transaction Search , Finance Movements, KYC report, Chargebacks Report, Fraud transactions report | 
+Acquiring Service Fee and interchange cost, Fraud transactions report | 
+Requests search, Orders search
+-------------
+Page1: //ul[@id='reportAccordion']//div[@id='blockSearch']//div[contains(@class,'topMost')]
+//ul[@id='reportAccordion']//div[@id='blockSearch']/div[1]
+
+Page2: //ul[@id='reportAccordion']//div[@id='blockSearch']//div[@class='show_in_compact'] //div[contains(@class,'blockActions')]
+
+
+Page1: 
+//ul[@id='reportAccordion']//div[@id='blockSearch']//div[contains(@class,'submenuUp')]
+//ul[@id='reportAccordion']//div[@id='blockSearch']/div[2]
+
+
+
+====================
+Balance Report , Statistic Basic, Statistic Accounting, Balance Confirmation, Settlement Summary Report | Balance Report 
+-------------
+//ul[@id='reportAccordion']//div[@id='blockSearch']//div[contains(@class,'al_right')]
+
+
+====================
+====================G2S
+====================
+OperationalReports:
+//ul[@id='reportAccordion']//div[@id='blockSearch']//div[contains(@class,'topMost')]/ul/li/a[contains(@class,'btnGenerateReport')]
+-------------
+FinancialReports: Balance Report,Movement Search, Payout History, Vendor Report
+-------------
+//*[@id="generate_report_btn"]
+-------------
+MarketingReports: Conversion Rates
+-------------
+=============
+Conversion rates
+--------------
+
+
+2 + 3
+
+
+
+        String buttonCustomize  = "//a[text()[normalize-space(.)='Customize']]";
+        String currencyDropDown = "//*[@id='currency']";
+
+        WebDriverWait wait         = new WebDriverWait(browser, waitingTimes[5] * 6);
+        WebElement    btnCustomize = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(buttonCustomize)));
+        btnCustomize.click();
+
+        WebElement    dropDownCurrency = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(currencyDropDown)));
+
+        JavascriptExecutor js = (JavascriptExecutor) browser;
+        js.executeScript("arguments[0].style.border='2px solid red'", dropDownCurrency);
+        dropDownCurrency.click();
+
+
+
+
+
+
+
+
+
+
+
+
+

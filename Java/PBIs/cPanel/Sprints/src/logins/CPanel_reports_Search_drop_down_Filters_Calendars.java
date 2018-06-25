@@ -9,17 +9,19 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class CPanel_reports_Search_drop_down_Filters_Calendars {
 
-    private static String fromOrToTimeDate;
+    private String fromOrToTimeDate;
 
-    public static void setFromOrToTimeDate(String someTime) {
-        fromOrToTimeDate = someTime;
+    private void setFromOrToTimeDate(String someTime) {
+        this.fromOrToTimeDate = someTime;
     }
 
-    public static String getFromOrToTimeDate() {
+    public String getFromOrToTimeDate() {
         return fromOrToTimeDate;
     }
 
-    public static String calendarDate(WebDriver driver, long waitingTime, CustomCalendarDate fromDate, CustomCalendarDate toDate) {
+    public  String calendarDate(WebDriver driver, long waitingTime, CustomCalendarDate fromDate, CustomCalendarDate toDate) {
+
+        boolean DEBUG = false;
 
         WebDriverWait wait = new WebDriverWait(driver, waitingTime);
 
@@ -47,20 +49,25 @@ public class CPanel_reports_Search_drop_down_Filters_Calendars {
             hours = var.getHour();
             minutes = var.getMinute();
 
-            System.out.println("  Zero year: " + year);
-            System.out.println(" Zero month: " + month);
-            System.out.println("   Zero day: " + day);
-
-            System.out.println("===============");
+            if (DEBUG) {
+                System.out.println("  Zero year: " + year);
+                System.out.println(" Zero month: " + month);
+                System.out.println("   Zero day: " + day);
+                System.out.println("===============");
+            }
 
             if (!var.combineDate("-").equals("--1") && var == fromDate) {
                 dateChange = "//*[@id='dateFrom']";
-                System.out.println("------From Date------");
-                calendarNumber = 1;   // value needed for the Calendar's xpath
+                if (DEBUG) {
+                    System.out.println("------From Date------");
+                }
+//                calendarNumber = 1;   // value needed for the Calendar's xpath
                 setFromOrToTimeDate("FROM");
             } else if (!var.combineDate("-").equals("--1") && var == toDate) {
                 dateChange = "//*[@id='dateTo']";
-                System.out.println("------To Date------");
+                if (DEBUG) {
+                    System.out.println("------To Date------");
+                }
                 calendarNumber = 2; // value needed for the Calendar's xpath
                 setFromOrToTimeDate("TO");
 
@@ -70,7 +77,7 @@ public class CPanel_reports_Search_drop_down_Filters_Calendars {
                 day = "1";
             }
 
-            if ((!(year == null || year.isEmpty())) && (!(month == null || month.isEmpty()))&& (!(day == null || day.isEmpty()))) {
+            if ((!(year == null || year.isEmpty())) && (!(month == null || month.isEmpty())) && (!(day == null || day.isEmpty()))) {
 //            if ((!fromDate.combineDate().equals("--1")) || (!toDate.combineDate().equals("--1"))) {
                 if ((!var.combineDate("-").equals("--1"))) {
 //                String calendarToChoose    = "//table[@class='DynarchCalendar-topCont'][" + calendarNumber + "]//div[contains(@class,'DynarchCalendar-focused')]";
@@ -81,8 +88,6 @@ public class CPanel_reports_Search_drop_down_Filters_Calendars {
                     String clickToChooseDay   = calendarOnFocus + "//tbody//div[@class='DynarchCalendar-body']//div[@dyc-date='" + day + "']";
 //                String clickOnElementLabel = "//label[text()[normalize-space(.)='To date/time:']]";
                     String clickOnElementLabel = "//h1[@class='page_title']";
-
-
 
 
                     WebElement dateMenu = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(dateChange)));
@@ -118,28 +123,30 @@ public class CPanel_reports_Search_drop_down_Filters_Calendars {
 
                     wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(clickToChooseDay)));  // wait
 
-
                     try {
                         Thread.sleep(500L);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
 
-
                 }
             }
             concatenatedDate = year + "-" + month + "-" + day;
-            System.out.println("concatenatedDate: " + concatenatedDate);
-            System.out.format(" Y:%s M:%s D:%s \n", var.getYear(), var.getMonth(), var.getDay());
-
-
-            if ((!(hours == null || hours.isEmpty())) && (!(minutes == null || minutes.isEmpty()))) {
-                System.out.println("  Hours are not null: " + hours);
-                calendarTime(driver, waitingTime,hours,minutes); // Sets the Hours
-            } else {
-                System.out.println("  Hours or Minutes are empty! ");
+            if (DEBUG) {
+                System.out.println("concatenatedDate: " + concatenatedDate);
+                System.out.format(" Year: %s Month: %s Day: %s \n", var.getYear(), var.getMonth(), var.getDay());
             }
 
+            if ((!(hours == null || hours.isEmpty())) && (!(minutes == null || minutes.isEmpty()))) {
+                if (DEBUG) {
+                    System.out.println("  Hours are not null: " + hours);
+                }
+                calendarTime(driver, waitingTime, hours, minutes); // Sets the Hours
+            } else {
+                if (DEBUG) {
+                    System.out.println("  Hours or Minutes are empty! ");
+                }
+            }
 
 
         }
@@ -167,24 +174,28 @@ public class CPanel_reports_Search_drop_down_Filters_Calendars {
 //@TODO: finish the calendar date minute calculation
 
 
-    private static String calendarTime(WebDriver driver, long waitingTime, String hour, String minutes) {
+    private String calendarTime(WebDriver driver, long waitingTime, String hour, String minutes) {
+        boolean DEBUG      = false;
+        String  timeChange = "";
+        String  fromTime   = "FROM";
+        String  toTime     = "TO";
 
-        String timeChange = "";
-        String fromTime   = "FROM";
-        String toTime     = "TO";
-
-
-        System.out.println("  Zero hour: " + hour);
-        System.out.println("Zero minute: " + minutes);
-        System.out.println("===============");
+        if (DEBUG) {
+            System.out.println("  Zero hour: " + hour);
+            System.out.println("Zero minute: " + minutes);
+            System.out.println("===============");
+        }
 
         if (getFromOrToTimeDate().equals(fromTime)) {
             timeChange = "//*[@id='timeFrom']";
-            System.out.println("------From Time------");
-
+            if (DEBUG) {
+                System.out.println("------From Time------");
+            }
         } else if (getFromOrToTimeDate().equals(toTime)) {
             timeChange = "//*[@id='timeTo']";
-            System.out.println("------To Time------");
+            if (DEBUG) {
+                System.out.println("------To Time------");
+            }
         } else {
             minutes = "99"; //Not possible digit for minutes
         }
@@ -230,6 +241,7 @@ public class CPanel_reports_Search_drop_down_Filters_Calendars {
 
     private static void setTime(WebDriver driver, long waitingTime, String timeExpected) {
 
+        boolean DEBUG = false;
 
         String calendarTimeOnFocus = "//table[@class='DynarchCalendar-topCont' and (not(contains(@style,'display: none')))]//tbody//div[@class='DynarchCalendar-bottomBar']//table[@class='DynarchCalendar-time']";
         String timeDigits          = calendarTimeOnFocus + "//div[@class='DynarchCalendar-time-hour']";
@@ -255,10 +267,10 @@ public class CPanel_reports_Search_drop_down_Filters_Calendars {
 
 //         timeCurr = 23; // 11 - (0 + 6) = 5 down > | 23 - 5 = 19 up
 //         timeExp = 20;  // 0 - (0 + 20) = -20 up < | 23 -20 + 1 = 4 down
-
-        System.out.println("   Time Now: " + timeCurr);
-        System.out.println("Time Wanted: " + timeExp);
-
+        if (DEBUG) {
+            System.out.println("   Time Now: " + timeCurr);
+            System.out.println("Time Wanted: " + timeExp);
+        }
 //============= Calculating how many minimum clicks and which arrow to press:
         int clicksDown;
         int clicksUP;
@@ -266,39 +278,53 @@ public class CPanel_reports_Search_drop_down_Filters_Calendars {
             numberOfClicks = timeCurr - timeExp;
             clicksUP = Math.abs(numberOfClicks);
             clicksDown = Math.abs(hoursInDay + (numberOfClicks));
-            System.out.println("Clicks DOWN count : " + clicksDown);
-            System.out.println("  Clicks UP count : " + clicksUP);
+
+            if (DEBUG) {
+                System.out.println("Clicks DOWN count : " + clicksDown);
+                System.out.println("  Clicks UP count : " + clicksUP);
+            }
 
             if (clicksDown < clicksUP) {
                 whichArrow = arrowDown;
                 numberOfClicks = clicksDown;
-                System.out.println("Which arrow to click: " + whichArrow);
-                System.out.println("     How many clicks: " + numberOfClicks);
+                if (DEBUG) {
+                    System.out.println("Which arrow to click: " + whichArrow);
+                    System.out.println("     How many clicks: " + numberOfClicks);
+                }
+
             } else {
                 whichArrow = arrowUp;
                 numberOfClicks = clicksUP;
-                System.out.println("Which arrow to click: " + whichArrow);
-                System.out.println("     How many clicks: " + numberOfClicks);
+                if (DEBUG) {
+                    System.out.println("Which arrow to click: " + whichArrow);
+                    System.out.println("     How many clicks: " + numberOfClicks);
+                }
             }
 
         } else {
             numberOfClicks = timeCurr - timeExp;
             clicksDown = Math.abs(numberOfClicks);
             clicksUP = Math.abs(hoursInDay - (numberOfClicks));
-            System.out.println("   Clicks DOWN count: " + clicksDown);
-            System.out.println("     Clicks UP count: " + clicksUP);
+            if (DEBUG) {
+                System.out.println("   Clicks DOWN count: " + clicksDown);
+                System.out.println("     Clicks UP count: " + clicksUP);
+            }
 
             if (clicksDown < clicksUP) {
                 whichArrow = arrowDown;
                 numberOfClicks = clicksDown;
-                System.out.println("Which arrow to click: " + whichArrow);
-                System.out.println("     How many clicks: " + numberOfClicks);
+                if (DEBUG) {
+                    System.out.println("Which arrow to click: " + whichArrow);
+                    System.out.println("     How many clicks: " + numberOfClicks);
+                }
 
             } else {
                 whichArrow = arrowUp;
                 numberOfClicks = clicksUP;
-                System.out.println("Which arrow to click: " + whichArrow);
-                System.out.println("     How many clicks: " + numberOfClicks);
+                if (DEBUG) {
+                    System.out.println("Which arrow to click: " + whichArrow);
+                    System.out.println("     How many clicks: " + numberOfClicks);
+                }
             }
 
         }
@@ -328,6 +354,7 @@ public class CPanel_reports_Search_drop_down_Filters_Calendars {
     }
 
     private static void setMinutes(WebDriver driver, long waitingTime, String minutesExpected) {
+        boolean DEBUG = false;
 
         String calendarTimeOnFocus = "//table[@class='DynarchCalendar-topCont' and (not(contains(@style,'display: none')))]//tbody//div[@class='DynarchCalendar-bottomBar']//table[@class='DynarchCalendar-time']";
         String minutesDigit        = calendarTimeOnFocus + "//div[@class='DynarchCalendar-time-minute']";
@@ -361,12 +388,15 @@ public class CPanel_reports_Search_drop_down_Filters_Calendars {
 
         // 0 - (0 + 20) = -20 up < | 23 -20 + 1 = 4 down
         int expected = (int) Math.floor(minsExp / minsInjump);
-        System.out.println("     Now: " + now);
-        System.out.println("Expected: " + expected);
-
+        if (DEBUG) {
+            System.out.println("     Now: " + now);
+            System.out.println("Expected: " + expected);
+        }
 
         int mins = (int) Math.floor(minsInHour / minsInjump);
-        System.out.println("minsInHour: " + mins);
+        if (DEBUG) {
+            System.out.println("minsInHour: " + mins);
+        }
 
         int clicksDown;
         int clicksUP;
@@ -374,38 +404,52 @@ public class CPanel_reports_Search_drop_down_Filters_Calendars {
             numberOfClicks = now - expected;
             clicksUP = Math.abs(numberOfClicks);
             clicksDown = Math.abs(mins + (numberOfClicks));
-            System.out.println("clicksDown: " + clicksDown);
-            System.out.println("  clicksUP: " + clicksUP);
+            if (DEBUG) {
+                System.out.println("clicksDown: " + clicksDown);
+                System.out.println("  clicksUP: " + clicksUP);
+            }
 
             if (clicksDown < clicksUP) {
                 whichArrow = arrowDown;
                 numberOfClicks = clicksDown;
-                System.out.println(" Where: " + whichArrow);
-                System.out.println("result: " + numberOfClicks);
+                if (DEBUG) {
+                    System.out.println(" Where: " + whichArrow);
+                    System.out.println("result: " + numberOfClicks);
+                }
+
             } else {
                 whichArrow = arrowUp;
                 numberOfClicks = clicksUP;
-                System.out.println(" Where: " + whichArrow);
-                System.out.println("result: " + numberOfClicks);
+                if (DEBUG) {
+                    System.out.println(" Where: " + whichArrow);
+                    System.out.println("result: " + numberOfClicks);
+                }
             }
 
         } else {
             numberOfClicks = now - expected;
             clicksDown = Math.abs(numberOfClicks);
             clicksUP = Math.abs(mins - (numberOfClicks));
-            System.out.println("clicksDown: " + clicksDown);
-            System.out.println("  clicksUP: " + clicksUP);
+            if (DEBUG) {
+                System.out.println("clicksDown: " + clicksDown);
+                System.out.println("  clicksUP: " + clicksUP);
+            }
 
             if (clicksDown < clicksUP) {
                 whichArrow = arrowDown;
                 numberOfClicks = clicksDown;
-                System.out.println(" Where: " + whichArrow);
-                System.out.println("result: " + numberOfClicks);
+                if (DEBUG) {
+                    System.out.println(" Where: " + whichArrow);
+                    System.out.println("result: " + numberOfClicks);
+                }
+
             } else {
                 whichArrow = arrowUp;
                 numberOfClicks = clicksUP;
-                System.out.println(" Where: " + whichArrow);
-                System.out.println("result: " + numberOfClicks);
+                if (DEBUG) {
+                    System.out.println(" Where: " + whichArrow);
+                    System.out.println("result: " + numberOfClicks);
+                }
             }
 
         }

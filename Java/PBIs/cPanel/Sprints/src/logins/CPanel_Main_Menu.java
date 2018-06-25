@@ -1,9 +1,6 @@
 package logins;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.Capabilities;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Action;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.remote.RemoteWebDriver;
@@ -77,11 +74,12 @@ public class CPanel_Main_Menu {
         String dropDown_SubMenu_by_text   = subReports_Menu + "//a[text()[normalize-space(.)='" + subMenu + "']]";
         String dropDown_FinalMenu_by_text = subReports_Menu + "//a[text()[normalize-space(.)='" + finalMenu + "']]";
         String reportTable                = "//*[@id='reportAccordion']/li[1]";
+        String oldDashboardMainPage       = "//tr[@id='chart_tr_1']";
 
         Actions builder = new Actions(browser);
 
-        WebElement reportsHeader     = browser.findElement(By.xpath(menuReports_by_text));
-        WebElement subMenu1_DropDown ;
+        WebElement reportsHeader = browser.findElement(By.xpath(menuReports_by_text));
+        WebElement subMenu1_DropDown;
         WebElement subMenu_Final;
 
         Action mouseOverHome;
@@ -129,9 +127,25 @@ public class CPanel_Main_Menu {
             }
 
 
-            WebDriverWait wait = new WebDriverWait(browser, 15);
+            WebDriverWait wait = new WebDriverWait(browser, 5);
 
-            wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(reportTable)));
+            try {
+                wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(reportTable)));
+            } catch (Exception ex1) {
+                System.out.printf("Element from the next page is not found.\n\t %s \n", ex1.getMessage());
+            }
+
+
+
+            try {
+                wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(oldDashboardMainPage)));
+            } catch (Exception ex2) {
+                System.out.printf("Element from this Fpage page is still active.\n\t %s\n", ex2.getMessage());
+            }
+
+
+
+
         }
 
 // @TODO        Assert.assertEquals(pageTitle.getText(), finalMenu);

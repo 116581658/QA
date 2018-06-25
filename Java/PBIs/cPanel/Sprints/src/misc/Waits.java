@@ -14,7 +14,7 @@ public class Waits {
 
     public static WebElement findElement(final WebDriver driver, final By locator, final int timeoutSeconds) {
 
-        //FluentWait Decleration
+        //FluentWait Declaration
         FluentWait<WebDriver> waitFluent = new FluentWait<WebDriver>(driver)
                 .withTimeout(timeoutSeconds, TimeUnit.SECONDS) //Set timeout
                 .pollingEvery(300, TimeUnit.MILLISECONDS) //Set query/check/control interval

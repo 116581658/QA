@@ -213,6 +213,96 @@ public class CPanel_reports_Search_RunReport {
             return value;
         }
     }
+
+
+    public static enum G2S_Reports_Operational_Simple {
+        EMPTY("");
+
+        G2S_Reports_Operational_Simple(String v) {
+            value = v;
+        }
+
+        private String value;
+
+        public String getValue() {
+            return value;
+        }
+    }
+
+    public static enum G2S_Reports_Operational_Complex {
+        TRANSACTIONSEARCH("Transaction Search");
+
+        G2S_Reports_Operational_Complex(String v) {
+            value = v;
+        }
+
+        private String value;
+
+        public String getValue() {
+            return value;
+        }
+    }
+
+    public static enum G2S_Reports_Financial_Simple {
+        BALANCEREPORT("Balance Report"),
+        MOVEMENTSEARCH("Movement Search"),
+        PAYOUTHISTORY("Payout History"),
+        VENDORREPORT("Vendor Report");
+
+        G2S_Reports_Financial_Simple(String v) {
+            value = v;
+        }
+
+        private String value;
+
+        public String getValue() {
+            return value;
+        }
+    }
+
+    public static enum G2S_Reports_Financial_Complex {
+        EMPTY("");
+
+        G2S_Reports_Financial_Complex(String v) {
+            value = v;
+        }
+
+        private String value;
+
+        public String getValue() {
+            return value;
+        }
+    }
+
+    public static enum G2S_Reports_Marketing_Simple {
+        CONVERSIONRATES("Conversion Rates");
+
+        G2S_Reports_Marketing_Simple(String v) {
+            value = v;
+        }
+
+        private String value;
+
+        public String getValue() {
+            return value;
+        }
+    }
+
+    public static enum G2S_Reports_Marketing_Complex {
+        EMPTY("");
+
+        G2S_Reports_Marketing_Complex(String v) {
+            value = v;
+        }
+
+        private String value;
+
+        public String getValue() {
+            return value;
+        }
+    }
+
+
     //@TODO : Fill in the report names in the ENUMs, overload the methods to take everyone one of the ENUMs
 
 

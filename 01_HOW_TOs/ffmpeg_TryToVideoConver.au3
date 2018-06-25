@@ -148,5 +148,16 @@ ffmpeg -ss 0:00:02.000 -i AcqiuringFraudReport_FlagOFF.mp4 -t 00:00:41.300 -c:v 
 
 Optional
 
+=============Video to Images:
+# Output one image every second, named out1.png, out2.png, out3.png, etc.:
 
+>>>ffmpeg -i ToRefilm_17601_This_002.mp4 -vf fps=20 out%06d.png
+
+Output one image every ten minutes:
+ffmpeg -i test.flv -vf fps=1/600 thumb%04d.bmp
+
+=============Images to Video:
+To create a video from a set of images:
+
+>>>ffmpeg -i image-%06d.png video.webm
 

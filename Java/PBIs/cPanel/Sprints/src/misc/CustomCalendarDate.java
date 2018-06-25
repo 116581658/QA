@@ -7,6 +7,7 @@ public class CustomCalendarDate {
     private String day;
     private String hour;
     private String minute;
+    boolean DEBUG = false;
 
 
     public CustomCalendarDate() {
@@ -19,13 +20,13 @@ public class CustomCalendarDate {
     public CustomCalendarDate(String hour, String minute) {
         CustomCalendarTime time = new CustomCalendarTime(hour, minute);
 
-
         this.hour = time.getHour();
         this.minute = time.getMinute();
 
-
-        System.out.println("   this.hour: " + this.hour);
-        System.out.println(" this.minute: " + this.minute);
+        if (DEBUG) {
+            System.out.println("   this.hour: " + this.hour);
+            System.out.println(" this.minute: " + this.minute);
+        }
 
     }
 
@@ -38,12 +39,13 @@ public class CustomCalendarDate {
         this.hour = time.getHour();
         this.minute = time.getMinute();
 
-        System.out.println("   this.year: " + this.year);
-        System.out.println("  this.month: " + this.month);
-        System.out.println("    this.day: " + this.day);
-        System.out.println("   this.hour: " + this.hour);
-        System.out.println(" this.minute: " + this.minute);
-
+        if (DEBUG) {
+            System.out.println("   this.year: " + this.year);
+            System.out.println("  this.month: " + this.month);
+            System.out.println("    this.day: " + this.day);
+            System.out.println("   this.hour: " + this.hour);
+            System.out.println(" this.minute: " + this.minute);
+        }
     }
 
 
@@ -53,9 +55,11 @@ public class CustomCalendarDate {
         this.month = setFromMonth(month)[0];
         this.day = setFromDay(day)[0];
 
-        System.out.println("   this.year: " + this.year);
-        System.out.println("  this.month: " + this.month);
-        System.out.println("    this.day: " + this.day);
+        if (DEBUG) {
+            System.out.println("   this.year: " + this.year);
+            System.out.println("  this.month: " + this.month);
+            System.out.println("    this.day: " + this.day);
+        }
 
     }
 
