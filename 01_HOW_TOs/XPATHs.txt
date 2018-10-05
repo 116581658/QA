@@ -96,4 +96,8 @@ builder.moveToElement(transSearch).build().perform();
 
 
 
+################################################################################################
+Opera plugin: Selenium Page Object Generator
+
+
 
