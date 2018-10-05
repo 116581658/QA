@@ -22,7 +22,7 @@ public class CPanel_reports_Search_Date_Range {
         WebElement dateRangeInput = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(dateRangeSearch)));
         dateRangeInput.sendKeys(changeToPeriod);
 
-//        browser.findElement(By.xpath(dateRangeSearch)).sendKeys(changeToPeriod);
+//        config.findElement(By.xpath(dateRangeSearch)).sendKeys(changeToPeriod);
 
         WebElement dateRangeValue = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(clickSearchresult)));
         dateRangeValue.click();
@@ -46,7 +46,7 @@ public class CPanel_reports_Search_Date_Range {
         WebElement dateRangeInput = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(dateRangeSearch)));
         dateRangeInput.sendKeys(changeToPeriod);
 
-//        browser.findElement(By.xpath(dateRangeSearch)).sendKeys(changeToPeriod);
+//        config.findElement(By.xpath(dateRangeSearch)).sendKeys(changeToPeriod);
 
         WebElement dateRangeValue = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(clickSearchresult)));
         dateRangeValue.click();

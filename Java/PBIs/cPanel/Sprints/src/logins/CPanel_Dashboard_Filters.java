@@ -2,22 +2,89 @@ package logins;
 
 import misc.HighlightElement;
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Target;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Properties;
+
+import static misc.Verifications.verifyChosenDropDownValue;
+import static misc.Waits.clickWhenReady;
+import static org.muthu.Verify.verifyEquals;
 
 
 public class CPanel_Dashboard_Filters {
+
+    private final boolean DEBUG = false;
+
+    private static String propertyFilePath = System.getProperty("user.dir") + "\\src\\misc\\objects.properties";
+
+    Properties prop = new Properties();
+    FileInputStream objfile;
+
+    {
+        try {
+            objfile = new FileInputStream(propertyFilePath);
+            prop.load(objfile);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e1) {
+            System.out.println("Configuration properties file cannot be found");
+        }
+    }
+
 
     public enum Filters {
         Dashboard_Filters,
         Popup_Filters
     }
+
+    public void click_ManageFilters(WebDriver driver) {
+        clickWhenReady(driver, By.xpath(prop.getProperty("btn_ManageFilters")), 10);
+    }
+
+    public void manageFilters_click_CloseX(WebDriver driver) {
+        clickWhenReady(driver, By.xpath(prop.getProperty("btn_CloseX")), 10);
+    }
+
+    public void manageFilters_click_Cancel(WebDriver driver) {
+        clickWhenReady(driver, By.xpath(prop.getProperty("btn_Cancel")), 10);
+    }
+
+    public void manageFilters_click_Apply(WebDriver driver) {
+        clickWhenReady(driver, By.xpath(prop.getProperty("btn_Apply")), 10);
+    }
+
+    public void selectValueFrom_FirstFilter(WebDriver driver, String firstFilterValue) {
+        selectFilter(driver, 5, By.xpath(prop.getProperty("btn_ManageFilters_SelectFilter")), firstFilterValue);
+    }
+
+    public void manageFilters_click_PleaseSelectACountry(WebDriver driver) {
+        clickWhenReady(driver, By.xpath(prop.getProperty("pleaseSelectACountry")), 10);
+    }
+
+    public void manageFilters_set_Country(WebDriver driver, String countryName) {
+        WebDriverWait wait = new WebDriverWait(driver, 30);
+
+        String     country = prop.getProperty("allCountries") + "[contains(text(),'" + countryName + "')]";
+        WebElement element = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(country)));
+        element.click();
+        System.out.println("Country \"" + countryName + "\" was selected.");
+    }
+
+
+    public void setCountry(WebDriver driver, String countryName) {
+        manageFilters_click_PleaseSelectACountry(driver);
+        manageFilters_set_Country(driver, countryName);
+    }
+
 
     public static void setDashboardFilters(WebDriver driver, long waitingTime, Filters items, String period, String[] countries, String[] paymentmethods, String acquirerBank, String currency, String[] clients) throws InterruptedException {
 
@@ -115,4 +182,97 @@ public class CPanel_Dashboard_Filters {
 
 
     }
+
+
+    public static void verifyNativeValues(List<String> actualValues, List<String> expectedValues) {
+        verifyEquals(actualValues, expectedValues);
+    }
+
+
+    /**
+     * Get all <code><option/></code> innerHTML attributes
+     */
+//    public static List<String> getAllOptions(final WebDriver driver, By locator) {
+    public static List<String> getAllOptions(WebDriver driver) {
+
+        String periodsFilter = "//*[@id='main_content']//div[contains(@class,'dashboard-filters-select-periods')]/select";
+
+        WebDriverWait    wait         = new WebDriverWait(driver, 10);
+        WebElement       dropdown     = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(periodsFilter)));
+        Select           select       = new Select(dropdown);
+        List<WebElement> options      = select.getOptions();
+        List<String>     optionValues = new ArrayList<>();
+
+        System.out.println("=========== Actual =========== ");
+        for (WebElement item : options) {
+            optionValues.add(item.getText());
+            System.out.println("Actual drop-down values are: " + item.getText());
+        }
+
+        return optionValues;
+    }
+
+
+    public static List<String> getAllOptions(final WebDriver driver, By locator) {
+
+        WebDriverWait wait = new WebDriverWait(driver, 10);
+
+        WebElement dropdown = driver.findElement(locator);
+//
+//
+        Select           select       = new Select(dropdown);
+        List<WebElement> options      = select.getOptions();
+        List<String>     optionValues = new ArrayList<>();
+
+        System.out.println("=========== Actual =========== ");
+        for (WebElement item : options) {
+            String obj = item.getText().trim();
+            optionValues.add(obj);
+            System.out.println("Actual drop-down values are: " + obj);
+        }
+
+        return optionValues;
+    }
+
+
+    public List<String> getAllElements(final WebDriver driver, By locator) {
+
+        WebDriverWait wait = new WebDriverWait(driver, 30);
+
+        wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(locator));
+        List<WebElement> elements = driver.findElements(locator);
+
+        List<String> optionValues = new ArrayList<>();
+        for (WebElement item : elements) {
+            String obj = item.getText().trim();
+            optionValues.add(obj);
+            if (DEBUG) {
+                System.out.println(obj);
+            }
+        }
+
+        return optionValues;
+    }
+
+    public void selectFilter(WebDriver driver, long waitingTimeSec, By locator, String dropDownValue) {
+
+        WebDriverWait wait     = new WebDriverWait(driver, 30);
+        WebElement    dropDown = wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
+
+//        String     currencyDropDown = "//*[@id='currency']";
+        WebElement dropDown2 = driver.findElement(locator);
+
+//        btnThemeEditor_verifyMerchantSiteDropDown(driver, dropDown, waitingTimeSec);
+
+        HighlightElement.highlightElementBorder(driver, dropDown2, "red");
+
+        Select dropDownOption = new Select(dropDown2);
+        dropDownOption.selectByVisibleText(dropDownValue);
+
+        verifyChosenDropDownValue(driver, waitingTimeSec, locator, dropDownValue);
+
+
+    }
+
+
 }

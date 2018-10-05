@@ -11,15 +11,19 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.util.concurrent.TimeUnit;
 
 import static java.util.concurrent.TimeUnit.MILLISECONDS;
+import static misc.Waits.EXPECT_NO_DEPLOY;
+import static misc.Waits.findElement;
+import static misc.Waits.waitForPageLoad;
 
 public class CPanel_Login {
 
-    public static String logInToCPan_Quest() {
-        String link_cPanelTRUNK    = "https://srv-bsf-devcpatrunk.gw-4u.com/login?lang=en_us";
-        String link_cPanelTRUNKInt = "https://srv-bsf-devcpatrunkint.gw-4u.com/";
-        String link_cPanelTAG      = "https://srv-bsf-devcpatag.gw-4u.com/";
-        String link_cPanelTAGInt   = "https://srv-bsf-devcpatagint.gw-4u.com/";
-        String link                = "";
+    public static String[] logInToCPan_Quest() {
+        String   link_cPanelTRUNK    = "https://srv-bsf-devcpatrunk.gw-4u.com/login?lang=en_us";
+        String   link_cPanelTRUNKInt = "https://srv-bsf-devcpatrunkint.gw-4u.com/";
+        String   link_cPanelTAG      = "https://srv-bsf-devcpatag.gw-4u.com/";
+        String   link_cPanelTAGInt   = "https://srv-bsf-devcpatagint.gw-4u.com/";
+        String   link                = "";
+        String[] result              = new String[2];
 
         String answer = DialogMessageWithDropDown.showMessageWindow("CPanel", "Choose where to login: ", new String[]{"TRUNK", "TAG", "TRUNK_INT", "TAG_INT"});
 
@@ -34,16 +38,20 @@ public class CPanel_Login {
         } else {
         }
 
-        return link;
+        result[0] = link;
+        result[1] = answer;
+
+        return result;
     }
 
-    public static String logInToCPan_Quest(String[] environments) {
+    public static String[] logInToCPan_Quest(String[] environments) {
         String link_cPanelTRUNK    = "https://srv-bsf-devcpatrunk.gw-4u.com/login?lang=en_us";
         String link_cPanelTRUNKInt = "https://srv-bsf-devcpatrunkint.gw-4u.com/";
         String link_cPanelTAG      = "https://srv-bsf-devcpatag.gw-4u.com/";
         String link_cPanelTAGInt   = "https://srv-bsf-devcpatagint.gw-4u.com/";
         String link                = "";
 // new String[]{"TRUNK", "TAG", "TRUNK_INT", "TAG_INT"}
+        String[] result = new String[2];
 
 
         String answer = DialogMessageWithDropDown.showMessageWindow("CPanel", "Choose where to login: ", environments);
@@ -59,22 +67,30 @@ public class CPanel_Login {
         } else {
         }
 
-        return link;
+        result[0] = link;
+        result[1] = answer;
+
+        return result;
     }
 
 
     public static void logInToThePage(WebDriver browser, String loginLink, long waitingTime, String userName, String userPass, boolean managingCompanyCheck, String company) {
-
         String pathUserName          = "//*[@id='login_name']";
         String pathUserPass          = "//*[@id='login_pass']";
         String nameManagingCompCheck = "managingCompanyIgnoreDomain";
         String pathLogIn             = "//input[@value='Log in']";
         String loginLogOutMenu       = "//*[@id='my_profile_main_menu']"; // CPanel element from the next page
 
+
+//'Service is temporarily down. Please try again later.'
+
+
 // Loading the Page:
         browser.get(loginLink);
         try {
-            browser.manage().timeouts().pageLoadTimeout(waitingTime, TimeUnit.MILLISECONDS);
+
+            waitForPageLoad(browser, (int) waitingTime, EXPECT_NO_DEPLOY);
+//          config.manage().timeouts().pageLoadTimeout(waitingTime, TimeUnit.MILLISECONDS);
         } catch (Throwable ex) {
             System.out.format("Page not loaded for %d milliseconds", waitingTime);
         }
@@ -110,7 +126,7 @@ public class CPanel_Login {
 
 // Waiting until we enter the CPanel page:
         WebDriverWait wait             = new WebDriverWait(browser, waitingTime);
-        WebElement    myDynamicElement = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(loginLogOutMenu)));
+        boolean       myDynamicElement = wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(pathLogIn)));
 
     }
 }

@@ -7,7 +7,7 @@ public class CPanel_Reports_GridColumns {
 
     public static String setGridColumns(WebDriver driver, long waitingTime, Integer report, String[][]... values) {
         String btn_GridColumns = "Grid Columns";
-        CPanel_reports_Search_RunReport.runReportButton(driver,2000,report,btn_GridColumns);
+//        CPanel_reports_Search_RunReport.pressReportButton(driver,2000,report,btn_GridColumns);
 
         for (String[][] v : values) {
             for (String[] k : v) {

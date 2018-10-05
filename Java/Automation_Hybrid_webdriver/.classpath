@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6"/>
+	<classpathentry kind="con" path="org.testng.TESTNG_CONTAINER"/>
+	<classpathentry kind="lib" path="C:/Softwares/jars/lib/framework jars/ant-apache-log4j.jar"/>
+	<classpathentry kind="lib" path="C:/Softwares/jars/lib/framework jars/dom4j-1.1.jar"/>
+	<classpathentry kind="lib" path="C:/Softwares/jars/lib/framework jars/jtds-1.2.5.jar"/>
+	<classpathentry kind="lib" path="C:/Softwares/jars/lib/framework jars/log4j-1.2.14.jar"/>
+	<classpathentry kind="lib" path="C:/Softwares/jars/lib/framework jars/logging-selenium-1.2.jar"/>
+	<classpathentry kind="lib" path="C:/Softwares/jars/lib/framework jars/mail.jar"/>
+	<classpathentry kind="lib" path="C:/Softwares/jars/lib/framework jars/mysql-connector-java-5.0.7-bin(2).jar"/>
+	<classpathentry kind="lib" path="C:/Softwares/jars/lib/framework jars/poi-3.6-20091214.jar"/>
+	<classpathentry kind="lib" path="C:/Softwares/jars/lib/framework jars/poi-ooxml-3.6-20091214.jar"/>
+	<classpathentry kind="lib" path="C:/Softwares/jars/lib/framework jars/poi-ooxml-schemas-3.6-20091214.jar"/>
+	<classpathentry kind="lib" path="C:/Softwares/jars/lib/framework jars/saxon-8.7.jar"/>
+	<classpathentry kind="lib" path="C:/Softwares/jars/lib/framework jars/SaxonLiaison.jar"/>
+	<classpathentry kind="lib" path="C:/Softwares/jars/lib/framework jars/sqljdbc4.jar"/>
+	<classpathentry kind="lib" path="C:/Softwares/jars/lib/framework jars/testng-xslt-maven-plugin-test-0.0.jar"/>
+	<classpathentry kind="lib" path="C:/Softwares/jars/lib/framework jars/validation-api-1.0.0.GA.jar"/>
+	<classpathentry kind="lib" path="C:/Softwares/jars/lib/framework jars/xmlbeans-2.3.0.jar"/>
+	<classpathentry kind="lib" path="C:/Softwares/jars/lib/framework jars/xstream-1.3.1.jar"/>
+	<classpathentry kind="lib" path="C:/Softwares/jars/selenium-server-standalone-2.41.0.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

@@ -6,6 +6,25 @@ import java.util.Date;
 
 public class DateCalculations {
 
+    private String Year;
+    private String Month;
+    private String Day;
+
+    public void setYear() {
+        String[] dateAndTime = getDateAndTime().split(" ");
+        Year = dateAndTime[0];
+    }
+
+    public void setMonth() {
+        String[] dateAndTime = getDateAndTime().split(" ");
+        Month = dateAndTime[1];
+    }
+
+    public void setDay() {
+        String[] dateAndTime = getDateAndTime().split(" ");
+        Day = dateAndTime[2];
+    }
+
 
     public static String getDate(int Years, int Months, int Days) {
 

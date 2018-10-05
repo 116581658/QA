@@ -11,6 +11,8 @@ _checkout.api.key|UPPUP3XQP3XNBNSAPQDW21FbekMk8sjFIMMiW4YdlDpls7u4Y
 
 -i %input -c:v libx264 -preset slow -crf 34 -an %output
 TFS_9094-trunk-tag-STYLE_DEP-_first_deposit.tst
+---New Settings for Scale - за леко мащабиране надолу; setpts=0.70*PTS- за забързване ; -tune animation - най-малък файл при равни други условия
+-i %input -r 18 -vf "scale=trunc(iw*0.93/2)*2:-2:force_original_aspect_ratio=decrease, setpts=0.70*PTS" -c:v libx264 -crf 30 -preset veryslow -tune animation -an %output
 
 ffmpeg -i Billing_details_Validation.avi -crf 28 Billing_details_Validation.mp4
 ffmpeg -i Billing_details_Validation.avi -c:v libx264 -preset slow -crf 28 -an Billing_details_Validation.mp4
@@ -160,4 +162,19 @@ ffmpeg -i test.flv -vf fps=1/600 thumb%04d.bmp
 To create a video from a set of images:
 
 >>>ffmpeg -i image-%06d.png video.webm
+
+
+=============Adding Image to Video:  (https://video.stackexchange.com/questions/12105/add-an-image-overlay-in-front-of-video-using-ffmpeg)
+>>>ffmpeg -y -i input.mp4 -i inputPic.png -filter_complex "[0:v][1:v] overlay=750:0:enable='between(t,5,6)'" output.mp4
+overlay=750:0 - widht:height of the image on the screen
+between(t,5,6)- image to appear between 5 and 6 seconds
+
+
+
+
+
+
+
+
+
 

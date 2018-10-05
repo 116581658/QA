@@ -40,7 +40,6 @@ public class CPanel_Dashboard_BTN_Customize {
 
         btnCustomize_verifyCurrencyChosen(driver, waitingTimeSec, currencyName);
 
-
     }
 
     public static void btnCustomize_verifyCurrencyDropDown(WebDriver driver, WebElement element, long waitingTimeSec) {
@@ -89,18 +88,24 @@ public class CPanel_Dashboard_BTN_Customize {
     }
 
 
-    public static void btnCustomize_clickApply(WebDriver driver, long waitingTimeSec) {
+   public static void btnCustomize_clickApply(WebDriver driver, long waitingTimeSec) {
 
-        String        popupApplyButton = "//*[@class='dashboard-customize-wrapper']//button[text()[normalize-space(.)='Apply']]";
-        WebDriverWait wait             = new WebDriverWait(driver, waitingTimeSec);
+        String popupApplyButton = "//*[@class='dashboard-customize-wrapper']//button[text()[normalize-space(.)='Apply']]";
+//        String        buttonCustomize = "//a[text()[normalize-space(.)='Customize']]";
+        String        confirmMessage = "//*[@id='main_content']/div[@class='flash_messages_wrapper']/div[text()[normalize-space(.)='Dashboard customized successfully.']]";
+        WebDriverWait wait           = new WebDriverWait(driver, waitingTimeSec);
 
 
         WebElement elementBTNApply = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(popupApplyButton)));
         elementBTNApply.click();
         System.out.println(getDateAndTime() + "--> Button 'Apply' was pressed. ");
 
-        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(popupApplyButton)));
-        System.out.println(getDateAndTime() + "--> Button 'Apply' disappeared. ");
+
+        WebElement btnCustomize = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(confirmMessage)));
+        System.out.println(getDateAndTime() + "--> Button 'Customize' has appeared. ");
+
+//        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(popupApplyButton)));
+//        System.out.println(getDateAndTime() + "--> Button 'Apply' disappeared. ");
 
     }
 
@@ -174,18 +179,19 @@ public class CPanel_Dashboard_BTN_Customize {
 
     public enum DashboardPopup_OVERVIEWDASHBOARD_getFieldName {
 
+        ACQUIRERBANKSDISTRIBUTION("Acquirer Banks"),                           // Works in TRUNK
+        //        ACQUIRERBANKSDISTRIBUTION("Acquirer Banks Distribution"),    // Works in TAG
         APPROVALRATIO("Approval Ratio"),
         AVERAGETRANSACTIONVALUE("Average Transaction Value"),
         CHARGEBACKSAMOUNTRATIO("Chargebacks Amount Ratio"),
         DECLINEREASONSCODE("Decline Reasons Code"),
+        DEVICETYPE("Device Type"),                                   // Works in TRUNK only for now
         FRAUDFILTERSRATIO("Fraud Filters Ratio"),
         LOCATION("Location"),
         PAYMENTMETHODS("Payment Methods"),
         REFUNDRATIO("Refund Ratio"),
         SALES("Sales"),
-        TRANSACTIONS("Transactions"),
-        ACQUIRERBANKSDISTRIBUTION("Acquirer Banks Distribution")
-        ;
+        TRANSACTIONS("Transactions");
 
         DashboardPopup_OVERVIEWDASHBOARD_getFieldName(String v) {
             value = v;
@@ -212,7 +218,7 @@ public class CPanel_Dashboard_BTN_Customize {
         }
     }
 
-    public static void btnCustomize_MAINDASHBOARD_setFields_OFF(WebDriver driver, long waitingTimeSec) throws InterruptedException {
+    public static void btnCustomize_MAINDASHBOARD_setFields_ON_OFF(WebDriver driver, long waitingTimeSec, DashboardPopup_setFieldState toggle) throws InterruptedException {
         String sectionName = DashboardPopup_Section_getName.MAINDASHBOARD.getValue();
         String getFieldName;
 
@@ -225,7 +231,7 @@ public class CPanel_Dashboard_BTN_Customize {
             String  section      = "//h2[text()[normalize-space(.)='" + sectionName + "']]/following-sibling::ul";
             String  field        = section + "//span[text()[normalize-space(.)=\"" + getFieldName + "\"]]"; // Here DON'T Change the " to ' !!!
             String  toggleButton = field + "/parent::li//label[contains(@class,'checkbox-label')]";
-            String  state        = "OFF";
+            String  state        = toggle.getValue();
             boolean firsttime    = true;
 
             WebDriverWait wait         = new WebDriverWait(driver, waitingTimeSec);
@@ -254,7 +260,7 @@ public class CPanel_Dashboard_BTN_Customize {
         }
     }
 
-    public static void btnCustomize_COMPARISONGRAPHS_setFields_OFF(WebDriver driver, long waitingTimeSec) throws InterruptedException {
+    public static void btnCustomize_COMPARISONGRAPHS_setFields_ON_OFF(WebDriver driver, long waitingTimeSec, DashboardPopup_setFieldState toggle) throws InterruptedException {
         String sectionName = DashboardPopup_Section_getName.COMPARISONGRAPHS.getValue();
         String getFieldName;
 
@@ -267,7 +273,7 @@ public class CPanel_Dashboard_BTN_Customize {
             String  section      = "//h2[text()[normalize-space(.)='" + sectionName + "']]/following-sibling::ul";
             String  field        = section + "//span[text()[normalize-space(.)=\"" + getFieldName + "\"]]"; // Here DON'T Change the " to ' !!!
             String  toggleButton = field + "/parent::li//label[contains(@class,'checkbox-label')]";
-            String  state        = "OFF";
+            String  state        = toggle.getValue();
             boolean firsttime    = true;
 
             WebDriverWait wait         = new WebDriverWait(driver, waitingTimeSec);
@@ -279,7 +285,7 @@ public class CPanel_Dashboard_BTN_Customize {
 
             js.executeScript("arguments[0].scrollIntoView(true);", elementField);
 
-            Thread.sleep(200);
+            Thread.sleep(50);
 //========Element change status:
             WebElement elementLocationToggle = driver.findElement(By.xpath(toggleButton));
             String     locationText          = elementLocationToggle.getText();
@@ -292,11 +298,11 @@ public class CPanel_Dashboard_BTN_Customize {
             System.out.printf("%s's toggle has set to: %s\n", getFieldName, locationText);
 
             js.executeScript("window.scrollTo(0,0);");
-            Thread.sleep(200);
+            Thread.sleep(50);
         }
     }
 
-    public static void btnCustomize_OVERVIEWDASHBOARD_setFields_OFF(WebDriver driver, long waitingTimeSec) throws InterruptedException {
+    public static void btnCustomize_OVERVIEWDASHBOARD_setFields_ON_OFF(WebDriver driver, long waitingTimeSec, DashboardPopup_setFieldState toggle) throws InterruptedException {
         String sectionName = DashboardPopup_Section_getName.MAINDASHBOARD.getValue();
         String getFieldName;
 
@@ -309,7 +315,7 @@ public class CPanel_Dashboard_BTN_Customize {
             String  section      = "//h2[text()[normalize-space(.)='" + sectionName + "']]/following-sibling::ul";
             String  field        = section + "//span[text()[normalize-space(.)=\"" + getFieldName + "\"]]"; // Here DON'T Change the " to ' !!!
             String  toggleButton = field + "/parent::li//label[contains(@class,'checkbox-label')]";
-            String  state        = "OFF";
+            String  state        = toggle.getValue();
             boolean firsttime    = true;
 
             WebDriverWait wait         = new WebDriverWait(driver, waitingTimeSec);
@@ -338,11 +344,12 @@ public class CPanel_Dashboard_BTN_Customize {
         }
     }
 
-private static boolean firstEntrance = true;
+    private static boolean firstEntrance = true;
+
     public static void btnCustomize_MAINDASHBOARD_setField_ON_OFF(WebDriver driver, long waitingTimeSec, DashboardPopup_MAINDASHBOARD_getFieldName fieldName, DashboardPopup_setFieldState state) throws InterruptedException {
 
-        if (firstEntrance){
-            btnCustomize_MAINDASHBOARD_setFields_OFF(driver,waitingTimeSec);
+        if (firstEntrance) {
+            btnCustomize_MAINDASHBOARD_setFields_ON_OFF(driver, waitingTimeSec, DashboardPopup_setFieldState.OFF);
             firstEntrance = false;
         }
 

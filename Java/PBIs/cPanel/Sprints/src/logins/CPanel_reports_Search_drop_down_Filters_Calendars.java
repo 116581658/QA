@@ -9,17 +9,17 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class CPanel_reports_Search_drop_down_Filters_Calendars {
 
-    private String fromOrToTimeDate;
+    private static String fromOrToTimeDate;
 
-    private void setFromOrToTimeDate(String someTime) {
-        this.fromOrToTimeDate = someTime;
+    private static void setFromOrToTimeDate(String someTime) {
+        fromOrToTimeDate = someTime;
     }
 
-    public String getFromOrToTimeDate() {
+    public static String getFromOrToTimeDate() {
         return fromOrToTimeDate;
     }
 
-    public  String calendarDate(WebDriver driver, long waitingTime, CustomCalendarDate fromDate, CustomCalendarDate toDate) {
+    public static String calendarDate(WebDriver driver, long waitingTime, CustomCalendarDate fromDate, CustomCalendarDate toDate) {
 
         boolean DEBUG = false;
 
@@ -41,7 +41,6 @@ public class CPanel_reports_Search_drop_down_Filters_Calendars {
             String hours;
             String minutes;
 
-            String dateChange = "";
 
             year = var.getYear();
             month = var.getMonth();
@@ -56,15 +55,34 @@ public class CPanel_reports_Search_drop_down_Filters_Calendars {
                 System.out.println("===============");
             }
 
+            String dateChange          = "";
+            String reportName          = getReportName(driver);
+            String requestsSearch      = "Requests search";
+            String ordersSearch        = "Orders search";
+            String balanceConfirmation = "Balance Confirmation";
+
             if (!var.combineDate("-").equals("--1") && var == fromDate) {
-                dateChange = "//*[@id='dateFrom']";
+
+                if (reportName.equals(requestsSearch) || reportName.equals(ordersSearch)) {
+                    dateChange = "//*[@id='fromDate']";
+
+                } else {
+                    dateChange = "//*[@id='dateFrom']";
+                }
+
                 if (DEBUG) {
                     System.out.println("------From Date------");
                 }
 //                calendarNumber = 1;   // value needed for the Calendar's xpath
                 setFromOrToTimeDate("FROM");
             } else if (!var.combineDate("-").equals("--1") && var == toDate) {
-                dateChange = "//*[@id='dateTo']";
+                if (reportName.equals(requestsSearch) || reportName.equals(ordersSearch)) {
+                    dateChange = "//*[@id='toDate']";
+
+                } else {
+                    dateChange = "//*[@id='dateTo']";
+                }
+
                 if (DEBUG) {
                     System.out.println("------To Date------");
                 }
@@ -81,11 +99,12 @@ public class CPanel_reports_Search_drop_down_Filters_Calendars {
 //            if ((!fromDate.combineDate().equals("--1")) || (!toDate.combineDate().equals("--1"))) {
                 if ((!var.combineDate("-").equals("--1"))) {
 //                String calendarToChoose    = "//table[@class='DynarchCalendar-topCont'][" + calendarNumber + "]//div[contains(@class,'DynarchCalendar-focused')]";
-                    String calendarOnFocus    = "//table[@class='DynarchCalendar-topCont' and (not(contains(@style,'display: none')))]";
+                    String calendarOnFocus    = "//table[@class='DynarchCalendar-topCont' and (not(contains(@style,'display: none')))]//div[contains(@class,'DynarchCalendar-focused')]";
                     String clickOnYear        = calendarOnFocus + "//table[@class='DynarchCalendar-titleCont']//div[@dyc-type='title']";
                     String clickToChangeYear  = calendarOnFocus + "//div[@class='DynarchCalendar-menu']//input[@class='DynarchCalendar-menu-year']";
                     String clickToChooseMonth = calendarOnFocus + "//table[@class='DynarchCalendar-menu-mtable']//div[text()[normalize-space(.)='" + month + "']]";
-                    String clickToChooseDay   = calendarOnFocus + "//tbody//div[@class='DynarchCalendar-body']//div[@dyc-date='" + day + "']";
+//                    String clickToChooseDay   = calendarOnFocus + "//tbody//div[@class='DynarchCalendar-body']//div[@dyc-date='" + day + "']";
+                    String clickToChooseDay = calendarOnFocus + "//div[@class='DynarchCalendar-body']//div[@dyc-date='" + day + "']";
 //                String clickOnElementLabel = "//label[text()[normalize-space(.)='To date/time:']]";
                     String clickOnElementLabel = "//h1[@class='page_title']";
 
@@ -153,6 +172,171 @@ public class CPanel_reports_Search_drop_down_Filters_Calendars {
         return concatenatedDate;
     }
 
+    public static String calendarDate(WebDriver driver, long waitingTime, CustomCalendarDate date) {
+
+        boolean DEBUG = false;
+
+        WebDriverWait wait = new WebDriverWait(driver, waitingTime);
+
+        CustomCalendarDate[] theLoop          = {date};
+        String               concatenatedDate = "";
+        for (CustomCalendarDate var : theLoop) {
+//            body-of-loop
+            Actions builder        = new Actions(driver);
+            Action  mouseOverDay;
+            byte    calendarNumber = 0;
+            String  fromTime;
+
+
+            String year;
+            String month;
+            String day;
+            String hours;
+            String minutes;
+
+
+            year = var.getYear();
+            month = var.getMonth();
+            day = var.combineDate();
+            hours = var.getHour();
+            minutes = var.getMinute();
+
+            if (DEBUG) {
+                System.out.println("  Zero year: " + year);
+                System.out.println(" Zero month: " + month);
+                System.out.println("   Zero day: " + day);
+                System.out.println("===============");
+            }
+
+            String dateChange          = "";
+            String reportName          = getReportName(driver);
+            String balanceConfirmation = "Balance Confirmation";
+
+            if (!var.combineDate("-").equals("--1") && var == date) {
+
+                if (reportName.equals(balanceConfirmation)) {
+                    dateChange = "//*[@id='date']";
+
+                } else {
+                    dateChange = "";
+                }
+
+                if (DEBUG) {
+                    System.out.println("------From Date------");
+                }
+//                calendarNumber = 1;   // value needed for the Calendar's xpath
+                setFromOrToTimeDate("FROM");
+            } else if (!var.combineDate("-").equals("--1") && var == date) {
+                if (reportName.equals(balanceConfirmation) ) {
+                    dateChange = "//*[@id='date']";
+
+                } else {
+                    dateChange = "";
+                }
+
+                if (DEBUG) {
+                    System.out.println("------To Date------");
+                }
+                calendarNumber = 2; // value needed for the Calendar's xpath
+                setFromOrToTimeDate("TO");
+
+            } else {
+                year = "";
+                month = "";
+                day = "1";
+            }
+
+            if ((!(year == null || year.isEmpty())) && (!(month == null || month.isEmpty())) && (!(day == null || day.isEmpty()))) {
+//            if ((!fromDate.combineDate().equals("--1")) || (!toDate.combineDate().equals("--1"))) {
+                if ((!var.combineDate("-").equals("--1"))) {
+//                String calendarToChoose    = "//table[@class='DynarchCalendar-topCont'][" + calendarNumber + "]//div[contains(@class,'DynarchCalendar-focused')]";
+                    String calendarOnFocus    = "//table[@class='DynarchCalendar-topCont' and (not(contains(@style,'display: none')))]//div[contains(@class,'DynarchCalendar-focused')]";
+                    String clickOnYear        = calendarOnFocus + "//table[@class='DynarchCalendar-titleCont']//div[@dyc-type='title']";
+                    String clickToChangeYear  = calendarOnFocus + "//div[@class='DynarchCalendar-menu']//input[@class='DynarchCalendar-menu-year']";
+                    String clickToChooseMonth = calendarOnFocus + "//table[@class='DynarchCalendar-menu-mtable']//div[text()[normalize-space(.)='" + month + "']]";
+//                    String clickToChooseDay   = calendarOnFocus + "//tbody//div[@class='DynarchCalendar-body']//div[@dyc-date='" + day + "']";
+                    String clickToChooseDay = calendarOnFocus + "//div[@class='DynarchCalendar-body']//div[@dyc-date='" + day + "']";
+//                String clickOnElementLabel = "//label[text()[normalize-space(.)='To date/time:']]";
+                    String clickOnElementLabel = "//h1[@class='page_title']";
+
+
+                    WebElement dateMenu = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(dateChange)));
+                    dateMenu.click();
+
+                    WebElement theYear = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(clickOnYear)));
+                    theYear.click();
+
+                    WebElement changeTheYear = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(clickToChangeYear)));  // wait
+                    changeTheYear.clear(); // sendKeys(Keys.chord(Keys.CONTROL, "a"));
+                    changeTheYear.sendKeys(year);
+
+                    WebElement selectMonth = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(clickToChooseMonth)));  // wait
+                    selectMonth.click();
+
+                    try {
+                        Thread.sleep(600L);        // This time pause is essential as it turned out after 4 days of tryings
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+
+                    WebElement selectDayFire = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(clickToChooseDay)));  // wait
+
+                    selectDayFire.click(); // this works with Chrome and with Firefox 11.05.2018
+
+//                mouseOverDay = builder.click(selectDayFire).build();
+//                mouseOverDay.perform();
+
+
+                /*!!!!!!! As the click on the second date was not selecting the date this is a hack for Chrome
+                (and as it turned out the best solution also for Firefox): !!!!!*/
+                    driver.findElement(By.xpath(clickOnElementLabel)).click();
+
+                    wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(clickToChooseDay)));  // wait
+
+                    try {
+                        Thread.sleep(500L);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+
+                }
+            }
+            concatenatedDate = year + "-" + month + "-" + day;
+            if (DEBUG) {
+                System.out.println("concatenatedDate: " + concatenatedDate);
+                System.out.format(" Year: %s Month: %s Day: %s \n", var.getYear(), var.getMonth(), var.getDay());
+            }
+
+            if ((!(hours == null || hours.isEmpty())) && (!(minutes == null || minutes.isEmpty()))) {
+                if (DEBUG) {
+                    System.out.println("  Hours are not null: " + hours);
+                }
+                calendarTime(driver, waitingTime, hours, minutes); // Sets the Hours
+            } else {
+                if (DEBUG) {
+                    System.out.println("  Hours or Minutes are empty! ");
+                }
+            }
+
+
+        }
+        return concatenatedDate;
+    }
+
+    public static String getReportName(WebDriver driver) {
+
+        String  reportHeader     = "//*[@id='main_content']/h1";
+        Boolean isPresent        = driver.findElements(By.xpath(reportHeader)).size() > 0;
+        String  reportHeaderName = driver.findElement(By.xpath(reportHeader)).getText();
+        if (isPresent) {
+            return reportHeaderName;
+
+        } else {
+            return "";
+        }
+
+    }
+
     public static void calendarVerifyFromDate(WebDriver browser, long waitingTime, CustomCalendarDate fromDate) {
         //@TODO
     }
@@ -174,7 +358,7 @@ public class CPanel_reports_Search_drop_down_Filters_Calendars {
 //@TODO: finish the calendar date minute calculation
 
 
-    private String calendarTime(WebDriver driver, long waitingTime, String hour, String minutes) {
+    private static String calendarTime(WebDriver driver, long waitingTime, String hour, String minutes) {
         boolean DEBUG      = false;
         String  timeChange = "";
         String  fromTime   = "FROM";
@@ -186,16 +370,36 @@ public class CPanel_reports_Search_drop_down_Filters_Calendars {
             System.out.println("===============");
         }
 
+
+        String reportName              = getReportName(driver);
+        String reportChargebacksReport = "Chargebacks Report";
+
+
         if (getFromOrToTimeDate().equals(fromTime)) {
-            timeChange = "//*[@id='timeFrom']";
+
+            if (reportName.equals(reportChargebacksReport)) {
+                timeChange = "//*[@id='timeFrom']/../div/i";
+            } else {
+                timeChange = "//*[@id='timeFrom']";
+            }
+
             if (DEBUG) {
                 System.out.println("------From Time------");
             }
+
+
         } else if (getFromOrToTimeDate().equals(toTime)) {
-            timeChange = "//*[@id='timeTo']";
+            if (reportName.equals(reportChargebacksReport)) {
+                timeChange = "//*[@id='timeTo']/../div/i";
+            } else {
+                timeChange = "//*[@id='timeTo']";
+            }
+
             if (DEBUG) {
                 System.out.println("------To Time------");
             }
+
+
         } else {
             minutes = "99"; //Not possible digit for minutes
         }
@@ -360,6 +564,7 @@ public class CPanel_reports_Search_drop_down_Filters_Calendars {
         String minutesDigit        = calendarTimeOnFocus + "//div[@class='DynarchCalendar-time-minute']";
         String minutesArrowUP      = calendarTimeOnFocus + "//td[@dyc-type='time-min+']";
         String minutesArrowDown    = calendarTimeOnFocus + "//td[@dyc-type='time-min-']";
+        String minutesOnCalendar   = calendarTimeOnFocus + "//tr/td/div[@dyc-type='time-min']";
 
         WebDriverWait wait = new WebDriverWait(driver, waitingTime);
 
@@ -377,7 +582,10 @@ public class CPanel_reports_Search_drop_down_Filters_Calendars {
         int    minsExp    = Integer.valueOf(minutesExpected);
         int    numberOfClicks;
         int    minsInHour = 60;
-        double minsInjump = 5;
+
+        int differencebetweenClicks = getMinutesDifference(driver, waitingTime);
+//        double minsInjump = 5;
+        double minsInjump = (double) differencebetweenClicks;
         int    now;
 
         if (minutesFromOrTo(minsCurr).equals(fromDateTime)) {
@@ -491,5 +699,41 @@ public class CPanel_reports_Search_drop_down_Filters_Calendars {
         return calendarToOrFrom;
     }
 
+
+    private static int getMinutesDifference(WebDriver driver, long waitingTime) {
+
+        String calendarTimeOnFocus = "//table[@class='DynarchCalendar-topCont' and (not(contains(@style,'display: none')))]//tbody//div[@class='DynarchCalendar-bottomBar']//table[@class='DynarchCalendar-time']";
+        String minutesArrowUP      = calendarTimeOnFocus + "//td[@dyc-type='time-min+']";
+        String minutesArrowDown    = calendarTimeOnFocus + "//td[@dyc-type='time-min-']";
+        String minutesOnCalendar   = calendarTimeOnFocus + "//tr/td/div[@dyc-type='time-min']";
+
+        WebDriverWait wait = new WebDriverWait(driver, waitingTime);
+
+        WebElement minute_ArrowUP = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(minutesArrowUP)));
+
+        WebElement minute_ArrowDOWN = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(minutesArrowDown)));
+
+        WebElement minutes;
+        String     minutesBeforeClicks = "";
+        String     minutesAfterClicks  = "";
+        int        minutesClickNumber  = 3;
+        for (int a = 0; a < minutesClickNumber; a++) {
+            if (a == 0) {
+                minute_ArrowUP.click();
+            } else if (a == 1) {
+                minutes = driver.findElement(By.xpath(minutesOnCalendar));
+                minutesBeforeClicks = minutes.getText();
+                minute_ArrowUP.click();
+                minutes = driver.findElement(By.xpath(minutesOnCalendar));
+                minutesAfterClicks = minutes.getText();
+            } else {
+                minute_ArrowDOWN.click();
+                minute_ArrowDOWN.click();
+            }
+        }
+
+        int minDiff = Integer.parseInt(minutesAfterClicks) - Integer.parseInt(minutesBeforeClicks);
+        return minDiff;
+    }
 
 }

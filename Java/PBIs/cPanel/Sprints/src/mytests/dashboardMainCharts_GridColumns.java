@@ -1,10 +1,7 @@
 package mytests;
 
 
-import logins.CPanel_Login;
-import logins.CPanel_Main_Menu;
-import logins.CPanel_Notifications;
-import logins.CPanel_Reports_GridColumns;
+import logins.*;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.annotations.AfterTest;
@@ -13,7 +10,7 @@ import org.testng.annotations.Test;
 
 import java.io.IOException;
 
-import static logins.CPanel_Dashboard_BTN_Customize.btnCustomize_MAINDASHBOARD_setFields_OFF;
+import static logins.CPanel_Dashboard_BTN_Customize.btnCustomize_MAINDASHBOARD_setFields_ON_OFF;
 import static logins.CPanel_Dashboard_BTN_Customize.click_BTNCustomize;
 
 //import org.apache.commons.io.FileUtils;
@@ -51,7 +48,7 @@ public class dashboardMainCharts_GridColumns {
         browser = new ChromeDriver();
 //
 //        System.setProperty("webdriver.gecko.driver", "C:\\02_QA\\Selenium\\WebDriver\\geckodriver-v0.20.0-win32.exe");
-//        WebDriver browser = new FirefoxDriver();
+//        WebDriver config = new FirefoxDriver();
 
 
 //
@@ -72,7 +69,7 @@ public class dashboardMainCharts_GridColumns {
         long waitingTime = waitingTimes[5] * 6;
         click_BTNCustomize(browser, waitingTimes[5] * 6);
 
-        btnCustomize_MAINDASHBOARD_setFields_OFF(browser,waitingTime);
+        btnCustomize_MAINDASHBOARD_setFields_ON_OFF(browser,waitingTime,CPanel_Dashboard_BTN_Customize.DashboardPopup_setFieldState.OFF);
 
 
 

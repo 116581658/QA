@@ -5,6 +5,7 @@ import logins.CPanel_Login;
 import logins.CPanel_Notifications;
 import logins.CPanel_Reports_GridColumns;
 import logins.CPanel_Main_Menu;
+import logins.CPanel_Main_Menu.CPanel_Menu_Names;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.annotations.AfterTest;
@@ -48,7 +49,7 @@ public class transactionSearch_GridColumns {
         browser = new ChromeDriver();
 //
 //        System.setProperty("webdriver.gecko.driver", "C:\\02_QA\\Selenium\\WebDriver\\geckodriver-v0.20.0-win32.exe");
-//        WebDriver browser = new FirefoxDriver();
+//        WebDriver config = new FirefoxDriver();
 
 
 //
@@ -66,7 +67,7 @@ public class transactionSearch_GridColumns {
         CPanel_Notifications.closeNotifications(browser, waitingTimes[5] * 2);
 
 //  =========== Choosing "Transaction Search" report:
-        String section       = "Reports";
+        CPanel_Menu_Names section       = CPanel_Menu_Names.REPORTS;
         String subSection    = "Operational Reports";
         String subSubSection = "Transaction Search";
 
