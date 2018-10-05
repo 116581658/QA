@@ -1,0 +1,10 @@
+{
+	"Command": [
+		"C:\\01_Myfiles\\Program_files\\QA\\gauge-1.0.0-windows.x86\\gauge.exe",
+		"run",
+		"--machine-readable",
+		"--hide-suggestion",
+		"--simple-console",
+		"C:/02_QA/03_AutomationTesting/Gauge/Gauge_with_Maven/GaugeSampleProject/specs/nowledge_graph.spec"
+	]
+}

@@ -1,0 +1,1 @@
+var index = {"Tags":{},"Specs":{"Google Knowledege Graph Specification":["specs/nowledge_graph.html"]}};
