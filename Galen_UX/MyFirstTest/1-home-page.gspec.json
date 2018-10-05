@@ -1,0 +1,50 @@
+{
+  "testId" : "1-home-page.gspec",
+  "name" : "home-page.gspec",
+  "report" : {
+    "nodes" : [ {
+      "name" : "Simple check",
+      "status" : "info",
+      "nodes" : [ {
+        "name" : "check  home-page.gspec --url http://samples.galenframework.com/tutorial1/tutorial1.html --size 640x480 --htmlreport .",
+        "status" : "info",
+        "nodes" : [ {
+          "name" : "Check layout: home-page.gspec included tags: ",
+          "status" : "error",
+          "time" : 1538142401958,
+          "sections" : [ {
+            "name" : "Main section",
+            "place" : {
+              "filePath" : "home-page.gspec",
+              "lineNumber" : 4
+            },
+            "objects" : [ {
+              "name" : "header",
+              "specs" : [ {
+                "status" : "error",
+                "place" : {
+                  "filePath" : "home-page.gspec",
+                  "lineNumber" : 6
+                },
+                "name" : "height 40px",
+                "errors" : [ "\"header\" height is 100px instead of 40px" ],
+                "highlight" : [ "header" ]
+              } ]
+            } ]
+          } ],
+          "objects" : {
+            "header" : {
+              "area" : [ 0, 0, 611, 100 ]
+            }
+          },
+          "screenshot" : "layout-1-screenshot.png",
+          "type" : "layout"
+        } ],
+        "time" : 1538142401603,
+        "type" : "node"
+      } ],
+      "time" : 1538142396891,
+      "type" : "node"
+    } ]
+  }
+}

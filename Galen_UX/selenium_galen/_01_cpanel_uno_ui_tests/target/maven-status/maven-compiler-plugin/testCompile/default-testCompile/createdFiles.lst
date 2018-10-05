@@ -1,0 +1,9 @@
+classes\CPanel_Login.class
+misc\Waits$3.class
+misc\Browser$RunBrowser.class
+tests\MyAccountPageTests.class
+misc\DialogMessageWithDropDown.class
+misc\Waits$2.class
+misc\Browser.class
+misc\Waits$1.class
+misc\Waits.class

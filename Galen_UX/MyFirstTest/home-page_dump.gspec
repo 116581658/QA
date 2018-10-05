@@ -1,0 +1,7 @@
+
+@objects
+    header    id  header
+    menu      id  menu
+    menu-item-*  css #menu ul li
+
+
