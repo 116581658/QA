@@ -1,0 +1,7 @@
+
+@objects
+    header    xpath  //*[@id="main_content"]/div[4]/div[3]/div[2]/div[1]/div
+    menu      xpath  //*[@id="header"]/div[2]
+    today     xpath  //*[@id="main_content"]/div[4]/div[4]/div/select
+
+

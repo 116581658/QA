@@ -6,7 +6,7 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="_01_cpanel_uno_ui_tests" />
+        <module name="cpanel_uno" />
       </profile>
     </annotationProcessing>
   </component>

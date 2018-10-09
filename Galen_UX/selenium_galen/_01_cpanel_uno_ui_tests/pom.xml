@@ -21,10 +21,21 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.22.0</version>
                 <configuration>
                     <suiteXmlFiles>
                         <suiteXmlFile>RegressionSuite.xml</suiteXmlFile>
                     </suiteXmlFiles>
+                    <properties>
+                        <property>
+                            <name>usedefaultlisteners</name>
+                            <value>false</value>
+                        </property>
+                        <property>
+                            <name>listener</name>
+                            <value>com.galenframework.testng.GalenTestNgReportsListener</value>
+                        </property>
+                    </properties>
                 </configuration>
             </plugin>
         </plugins>
@@ -47,7 +58,7 @@
         <dependency>
             <groupId>com.galenframework</groupId>
             <artifactId>galen-java-support</artifactId>
-            <version>2.0.3</version>
+            <version>2.3.7</version>
         </dependency>
 
 
