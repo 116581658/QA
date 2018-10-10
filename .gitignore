@@ -11,6 +11,9 @@
 # IntelliJ projectFolder files
 .idea/*
 
+# Galen dump files remove
+dumps/*
+
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
 
